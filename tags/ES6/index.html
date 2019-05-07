@@ -306,7 +306,26 @@
   <section class="article typo">
     <div class="article-entry" itemprop="articleBody">
        
-        <h2 id="let"><a href="#let" class="headerlink" title="let"></a>let</h2><h3 id="代码块、作用域、不存在变量提升、暂时性死区"><a href="#代码块、作用域、不存在变量提升、暂时性死区" class="headerlink" title="代码块、作用域、不存在变量提升、暂时性死区"></a>代码块、作用域、不存在变量提升、暂时性死区</h3><h1 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h1><h2 id="let-1"><a href="#let-1" class="headerlink" title="let"></a>let</h2><h3 id="代码块、作用域、不存在变量提升、暂时性死区-1"><a href="#代码块、作用域、不存在变量提升、暂时性死区-1" class="headerlink" title="代码块、作用域、不存在变量提升、暂时性死区"></a>代码块、作用域、不存在变量提升、暂时性死区</h3><h2 id="const"><a href="#const" class="headerlink" title="const"></a>const</h2><h3 id="只读、立即初始化"><a href="#只读、立即初始化" class="headerlink" title="只读、立即初始化"></a>只读、立即初始化</h3><h2 id="global对象"><a href="#global对象" class="headerlink" title="global对象"></a>global对象</h2><p>先占个坑</p>
+        <h2 id="let-和-const"><a href="#let-和-const" class="headerlink" title="let 和 const"></a>let 和 const</h2><p><code>let</code>声明变量，类似于<code>var</code>，但是<code>let</code>有作用域的概念。<br><code>const</code> 声明常量，一旦声明后，不可改变。<code>const</code> 声明后要立马初始化。</p>
+<p><strong>作用域</strong></p>
+<p>作用域顾名思义就是只有在某个区域内起作用。<code>let</code> 就只能在其作用域中起作用。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="keyword">let</span> a = <span class="number">10</span>;</span><br><span class="line">  <span class="keyword">var</span> b = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">a <span class="comment">// ReferenceError: a is not defined.</span></span><br><span class="line">b <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+<p><strong>变量提升</strong></p>
+<p><code>var</code> 命令会发生“变量提升”现象，即变量可以在声明之前使用，值为undefined。</p>
+<p><code>let</code> 定义的变量如果在声明之前使用会报错。</p>
+<p><strong>暂时性死区</strong></p>
+<p>如果区块中存在<code>let</code>和<code>const</code>命令，这个区块对这些命令声明的变量，从一开始就形成了封闭作用域（暂时性死区）。凡是在声明之前就使用这些变量，就会报错。</p>
+<p><strong>重复声明</strong></p>
+<p><code>let</code>不允许在相同作用域内，重复声明同一个变量。</p>
+<p><strong>const本质</strong></p>
+<p><code>const</code>实际上保证的，并不是变量的值不得改动，而是变量指向的那个内存地址所保存的数据不得改动。</p>
+<p>对于简单类型的数据（数值、字符串、布尔值），值就保存在变量指向的那个内存地址，因此等同于常量。但对于复合类型的数据（主要是对象和数组），变量指向的内存地址，保存的只是一个指向实际数据的指针，<code>const</code>只能保证这个指针是固定的（即总是指向另一个固定的地址），至于它指向的数据结构是不是可变的，就完全不能控制了。</p>
+<h2 id="global对象"><a href="#global对象" class="headerlink" title="global对象"></a>global对象</h2><p>顶层对象，在浏览器环境指的是<code>window</code>对象，在 <code>Node</code> 指的是<code>global</code>对象。</p>
+<p>ES5 之中，顶层对象的属性与全局变量是等价的。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.a = <span class="number">1</span>;</span><br><span class="line">a <span class="comment">// 1</span></span><br><span class="line"></span><br><span class="line">a = <span class="number">2</span>;</span><br><span class="line"><span class="built_in">window</span>.a <span class="comment">// 2</span></span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>为了保持兼容性，<code>var</code>命令和<code>function</code>命令声明的全局变量，依旧是顶层对象的属性；</li>
+<li><code>let</code>命令、<code>const</code>命令、class命令声明的全局变量，不属于顶层对象的属性</li>
+</ul>
 
       
       
