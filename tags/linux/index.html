@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   
-  <title>Category: 杂记 | Lokya</title>
+  <title>Tag: linux | Lokya</title>
   
   
   <meta name="description" content="lokya lokya blog">
@@ -224,10 +224,6 @@
         
           
         
-          
-        
-          
-        
       
     
     
@@ -245,8 +241,8 @@
       
         
   <h2 class="title">
-    <a href="/2019/05/09/others/miscellany_2/">
-      声声慢
+    <a href="/2019/06/14/notes/note1/">
+      too many open files
     </a>
   </h2>
   
@@ -275,7 +271,7 @@
             <div class="new-meta-item date">
   <a class="notlink">
     <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-    <p>2019-05-09</p>
+    <p>2019-06-14</p>
   </a>
 </div>
 
@@ -285,9 +281,9 @@
             
   
   <div class="new-meta-item category">
-    <a href="/categories/杂记/" rel="nofollow">
+    <a href="/categories/linux/" rel="nofollow">
       <i class="fas fa-folder-open" aria-hidden="true"></i>
-      <p>杂记</p>
+      <p>linux</p>
     </a>
   </div>
 
@@ -315,14 +311,26 @@
   <section class="article typo fold-all">
     <div class="article-entry" itemprop="articleBody">
        
-        <h2 id="声声慢"><a href="#声声慢" class="headerlink" title="声声慢"></a>声声慢</h2><p>寻寻觅觅，冷冷清清，凄凄惨惨戚戚。乍暖还寒时候，最难将息。三杯两盏淡酒，怎敌他、晚来风急！雁过也，正伤心，却是旧时相识。</p>
-<p>满地黄花堆积，憔悴损，如今有谁堪摘？守着窗儿，独自怎生得黑！梧桐更兼细雨，到黄昏、点点滴滴。这次第，怎一个愁字了得！</p>
-<p>怎一个愁字了得啊！</p>
+        <h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p>前端Jenkins跑服务时候报错，怎么都跑不起来，我就去服务器手动执行脚本。在<code>build</code>阶段发现服务器报错 <code>too many open files</code>,于是去查找资料找解决方案。</p>
+<p>这个报错是只打来文件过多，超过了系统限制的文件数量以及通讯链接数，这边的<code>files</code>不单是文件的意思，也包括打开的通讯链接(比如socket)，正在监听的端口等，也可以叫做句柄(handle)。这个错误通常也可以叫做句柄数超出系统限制。 </p>
+<h2 id="查看"><a href="#查看" class="headerlink" title="查看"></a>查看</h2><p>可以使用 ulimit -a 或者 ulimit -n 来查看当前系统最大句柄限制数</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">ulimit</span> -a</span><br><span class="line"></span><br><span class="line">core file size          (blocks, -c) 0</span><br><span class="line">data seg size           (kbytes, -d) unlimited</span><br><span class="line">scheduling priority             (-e) 0</span><br><span class="line">file size               (blocks, -f) unlimited</span><br><span class="line">pending signals                 (-i) 127922</span><br><span class="line">max locked memory       (kbytes, -l) 64</span><br><span class="line">max memory size         (kbytes, -m) unlimited</span><br><span class="line">open files                      (-n) 1024</span><br><span class="line">pipe size            (512 bytes, -p) 8</span><br><span class="line">POSIX message queues     (bytes, -q) 819200</span><br><span class="line">real-time priority              (-r) 0</span><br><span class="line">stack size              (kbytes, -s) 8192</span><br><span class="line">cpu time               (seconds, -t) unlimited</span><br><span class="line">max user processes              (-u) 127922</span><br><span class="line">virtual memory          (kbytes, -v) unlimited</span><br><span class="line">file locks                      (-x) unlimited</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">limit</span> -n</span><br><span class="line"></span><br><span class="line">1024</span><br></pre></td></tr></table></figure>
+<p>open files那一行就代表系统目前允许单个进程打开的最大句柄数，这里是1024。 </p>
+<p>同时使用 <code>-n</code> 查看下来也是1024。</p>
+<h2 id="修改"><a href="#修改" class="headerlink" title="修改"></a>修改</h2><h3 id="临时修改"><a href="#临时修改" class="headerlink" title="临时修改"></a>临时修改</h3><p><strong>ulimit -n</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">ulimit</span> -n 65535</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">ulimit</span> -a</span><br><span class="line"></span><br><span class="line">core file size          (blocks, -c) 0</span><br><span class="line">data seg size           (kbytes, -d) unlimited</span><br><span class="line">scheduling priority             (-e) 0</span><br><span class="line">file size               (blocks, -f) unlimited</span><br><span class="line">pending signals                 (-i) 127922</span><br><span class="line">max locked memory       (kbytes, -l) 64</span><br><span class="line">max memory size         (kbytes, -m) unlimited</span><br><span class="line">open files                      (-n) 65535</span><br><span class="line">pipe size            (512 bytes, -p) 8</span><br><span class="line">POSIX message queues     (bytes, -q) 819200</span><br><span class="line">real-time priority              (-r) 0</span><br><span class="line">stack size              (kbytes, -s) 8192</span><br><span class="line">cpu time               (seconds, -t) unlimited</span><br><span class="line">max user processes              (-u) 127922</span><br><span class="line">virtual memory          (kbytes, -v) unlimited</span><br><span class="line">file locks                      (-x) unlimited</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">limit</span> -n</span><br><span class="line"></span><br><span class="line">65535</span><br></pre></td></tr></table></figure>
+<p>但这种设置方法在重启后会<strong>还原为默认值</strong>。</p>
+<p><code>ulimit -n</code>命令非root用户只能设置到4096，想要设置到更大需要sudo权限或者root用户。</p>
+<h3 id="修改conf文件，永久配置"><a href="#修改conf文件，永久配置" class="headerlink" title="修改conf文件，永久配置"></a>修改conf文件，永久配置</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ vim /etc/security/limits.conf  </span><br><span class="line"><span class="comment">#在最后加入  </span></span><br><span class="line">* soft nofile 65535  </span><br><span class="line">* hard nofile 65535</span><br></pre></td></tr></table></figure>
+<p><code>*</code>代表所有用户，可以给特点用户设定句柄最大数值。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ vim /etc/security/limits.conf  </span><br><span class="line"><span class="comment">#在最后加入  </span></span><br><span class="line">jenkins soft nofile 65535  </span><br><span class="line">jenkins hard nofile 65535</span><br></pre></td></tr></table></figure>
+<p>上面就是把jenkins用户最大句柄数改成65535</p>
+<p>之后再查看大小的话可以发现已经修改为 65535 。</p>
 
       
       <!-- 
         <div class="readmore">
-          <a href="/2019/05/09/others/miscellany_2/" class="flat-box">
+          <a href="/2019/06/14/notes/note1/" class="flat-box">
             <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
             阅读全文
           </a>
@@ -331,7 +339,7 @@
     </div>
     
       <div class="readmore">
-        <a href="/2019/05/09/others/miscellany_2/" class="flat-box">
+        <a href="/2019/06/14/notes/note1/" class="flat-box">
           <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
           阅读全文
         </a>
@@ -340,236 +348,11 @@
     
       <div class="full-width auto-padding tags">
         
-          <a href="/tags/杂记/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>杂记</a>
+          <a href="/tags/linux/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>linux</a>
+        
+          <a href="/tags/note/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>note</a>
         
       </div>
-    
-  </section>
-</article>
-
-          </div>
-        
-      
-        
-          <div class="post-wrapper">
-            <article class="post reveal ">
-  
-
-
-  <section class="meta">
-    
-    
-    <div class="meta" id="header-meta">
-      
-        
-  <h2 class="title">
-    <a href="/2019/05/07/others/miscellany_1/">
-      论部门研发项目之怪现状
-    </a>
-  </h2>
-  
-
-
-      
-      <div class="new-meta-box">
-        
-          
-        
-          
-            
-  <div class="new-meta-item author">
-    <a href="https://lokya.github.io" rel="nofollow">
-      
-        <i class="fas fa-user" aria-hidden="true"></i>
-      
-      <p>Lokya</p>
-    </a>
-  </div>
-
-
-          
-        
-          
-            <div class="new-meta-item date">
-  <a class="notlink">
-    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-    <p>2019-05-07</p>
-  </a>
-</div>
-
-          
-        
-          
-            
-  
-  <div class="new-meta-item category">
-    <a href="/categories/杂记/" rel="nofollow">
-      <i class="fas fa-folder-open" aria-hidden="true"></i>
-      <p>杂记</p>
-    </a>
-  </div>
-
-
-          
-        
-          
-            
-
-          
-        
-          
-            
-
-          
-        
-      </div>
-      
-        <hr>
-      
-    </div>
-  </section>
-
-
-  <section class="article typo fold-all">
-    <div class="article-entry" itemprop="articleBody">
-       
-        <p>新产品开发已一年有余，每思项目中之事，无不发现其怪。此怪异有能者不作为，无能者空哀怨。。。。</p>
-      
-      <!-- 
-        <div class="readmore">
-          <a href="/2019/05/07/others/miscellany_1/" class="flat-box">
-            <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
-            阅读全文
-          </a>
-        </div>
-       -->
-    </div>
-    
-      <div class="readmore">
-        <a href="/2019/05/07/others/miscellany_1/" class="flat-box">
-          <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
-          阅读全文
-        </a>
-      </div>
-    
-    
-      <div class="full-width auto-padding tags">
-        
-          <a href="/tags/杂记/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>杂记</a>
-        
-      </div>
-    
-  </section>
-</article>
-
-          </div>
-        
-      
-        
-          <div class="post-wrapper">
-            <article class="post reveal ">
-  
-
-
-  <section class="meta">
-    
-    
-    <div class="meta" id="header-meta">
-      
-        
-  <h2 class="title">
-    <a href="/2019/04/30/others/start/">
-      源
-    </a>
-  </h2>
-  
-
-
-      
-      <div class="new-meta-box">
-        
-          
-        
-          
-            
-  <div class="new-meta-item author">
-    <a href="https://lokya.github.io" rel="nofollow">
-      
-        <i class="fas fa-user" aria-hidden="true"></i>
-      
-      <p>Lokya</p>
-    </a>
-  </div>
-
-
-          
-        
-          
-            <div class="new-meta-item date">
-  <a class="notlink">
-    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-    <p>2019-04-30</p>
-  </a>
-</div>
-
-          
-        
-          
-            
-  
-  <div class="new-meta-item category">
-    <a href="/categories/杂记/" rel="nofollow">
-      <i class="fas fa-folder-open" aria-hidden="true"></i>
-      <p>杂记</p>
-    </a>
-  </div>
-
-
-          
-        
-          
-            
-
-          
-        
-          
-            
-
-          
-        
-      </div>
-      
-        <hr>
-      
-    </div>
-  </section>
-
-
-  <section class="article typo fold-all">
-    <div class="article-entry" itemprop="articleBody">
-       
-        <h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p>我一直是一个不太喜欢写博客和文章的人，从业这么久，不喜欢去csdn或者博客园去发布文章。总觉得有时间还是看看书，娱乐娱乐比较好。忽然觉得有一个属于自己的地方，发点自己想想写的挺不错的。</p>
-<h2 id="打算"><a href="#打算" class="headerlink" title="打算"></a>打算</h2><p>想利用这个博客写点自己的东西，不论是技术分享还是技术笔记，或者生活杂记，都记录下来。例如拍个照片，可以发上来，这是一种记忆。</p>
-<h2 id="Emmmm"><a href="#Emmmm" class="headerlink" title="Emmmm"></a>Emmmm</h2><p>其实也不知道说什么好，总之，希望利用好这个博客吧。</p>
-
-      
-      <!-- 
-        <div class="readmore">
-          <a href="/2019/04/30/others/start/" class="flat-box">
-            <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
-            阅读全文
-          </a>
-        </div>
-       -->
-    </div>
-    
-      <div class="readmore">
-        <a href="/2019/04/30/others/start/" class="flat-box">
-          <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
-          阅读全文
-        </a>
-      </div>
-    
     
   </section>
 </article>
@@ -590,7 +373,6 @@
 
     
   
-
 </div>
 <aside class="l_side">
   

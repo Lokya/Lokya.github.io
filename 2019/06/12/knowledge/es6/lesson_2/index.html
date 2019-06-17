@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   
-  <title>Category: 杂记 | Lokya</title>
+  <title>变量的解构 | Lokya</title>
   
   
   <meta name="description" content="lokya lokya blog">
@@ -48,7 +48,7 @@
   
   
   <div class="cover-wrapper">
-    <cover class="cover  half">
+    <cover class="cover post half">
       
         
   <h1 class="title">
@@ -213,29 +213,12 @@
 
   <div class="l_body">
     <div class='body-wrapper'>
-      
-<div class="l_main">
+      <div class="l_main">
   
-    
-      
-  <section class="post-list">
-    
-      
-        
-          
-        
-          
-        
-          
-        
-      
-    
-    
-      
-        
-          <div class="post-wrapper">
-            <article class="post reveal ">
+
   
+    <article id="post" class="post white-box article-type-post" itemscope itemprop="blogPost">
+      
 
 
   <section class="meta">
@@ -244,11 +227,13 @@
     <div class="meta" id="header-meta">
       
         
-  <h2 class="title">
-    <a href="/2019/05/09/others/miscellany_2/">
-      声声慢
-    </a>
-  </h2>
+  
+    <h1 class="title">
+      <a href="/2019/06/12/knowledge/es6/lesson_2/">
+        变量的解构
+      </a>
+    </h1>
+    
   
 
 
@@ -275,7 +260,7 @@
             <div class="new-meta-item date">
   <a class="notlink">
     <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-    <p>2019-05-09</p>
+    <p>2019-06-12</p>
   </a>
 </div>
 
@@ -285,9 +270,9 @@
             
   
   <div class="new-meta-item category">
-    <a href="/categories/杂记/" rel="nofollow">
+    <a href="/categories/javascript/" rel="nofollow">
       <i class="fas fa-folder-open" aria-hidden="true"></i>
-      <p>杂记</p>
+      <p>javascript</p>
     </a>
   </div>
 
@@ -296,6 +281,19 @@
         
           
             
+  
+    <div class="new-meta-item browse busuanzi">
+      <a class="notlink">
+        <i class="fas fa-eye" aria-hidden="true"></i>
+        <p>
+          <span id="busuanzi_value_page_pv">
+            <i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i>
+          </span>
+        </p>
+      </a>
+    </div>
+  
+
 
           
         
@@ -312,284 +310,125 @@
   </section>
 
 
-  <section class="article typo fold-all">
-    <div class="article-entry" itemprop="articleBody">
-       
-        <h2 id="声声慢"><a href="#声声慢" class="headerlink" title="声声慢"></a>声声慢</h2><p>寻寻觅觅，冷冷清清，凄凄惨惨戚戚。乍暖还寒时候，最难将息。三杯两盏淡酒，怎敌他、晚来风急！雁过也，正伤心，却是旧时相识。</p>
-<p>满地黄花堆积，憔悴损，如今有谁堪摘？守着窗儿，独自怎生得黑！梧桐更兼细雨，到黄昏、点点滴滴。这次第，怎一个愁字了得！</p>
-<p>怎一个愁字了得啊！</p>
-
-      
-      <!-- 
-        <div class="readmore">
-          <a href="/2019/05/09/others/miscellany_2/" class="flat-box">
-            <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
-            阅读全文
-          </a>
+      <section class="article typo">
+        <div class="article-entry" itemprop="articleBody">
+          <h2 id="1-数组"><a href="#1-数组" class="headerlink" title="(1) 数组"></a>(1) 数组</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> [a, b, c] = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</span><br><span class="line"><span class="comment">// 报错</span></span><br><span class="line"><span class="keyword">let</span> [foo] = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">let</span> [foo] = <span class="literal">false</span>;</span><br><span class="line"><span class="keyword">let</span> [foo] = <span class="literal">NaN</span>;</span><br><span class="line"><span class="keyword">let</span> [foo] = <span class="literal">undefined</span>;</span><br><span class="line"><span class="keyword">let</span> [foo] = <span class="literal">null</span>;</span><br><span class="line"><span class="keyword">let</span> [foo] = &#123;&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="2-对象"><a href="#2-对象" class="headerlink" title="(2) 对象"></a>(2) 对象</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> &#123; foo, bar &#125; = &#123; <span class="attr">foo</span>: <span class="string">"aaa"</span>, <span class="attr">bar</span>: <span class="string">"bbb"</span> &#125;;</span><br></pre></td></tr></table></figure>
+<p>区分模式还是变量<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123;</span><br><span class="line">  p: [</span><br><span class="line">    <span class="string">'Hello'</span>,</span><br><span class="line">    &#123; <span class="attr">y</span>: <span class="string">'World'</span> &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> &#123; <span class="attr">p</span>: [x, &#123; y &#125;] &#125; = obj;</span><br><span class="line">x <span class="comment">// "Hello"</span></span><br><span class="line">y <span class="comment">// "World"</span></span><br></pre></td></tr></table></figure></p>
+<p>注意，这时p是模式，不是变量，因此不会被赋值<br>注意: 默认值生效的条件是，对象的属性值严格等于undefined。</p>
+<h2 id="3-字符串"><a href="#3-字符串" class="headerlink" title="(3)字符串"></a>(3)字符串</h2><p>看做数组<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> [a, b, c, d, e] = <span class="string">'hello'</span>;</span><br><span class="line">a <span class="comment">// "h"</span></span><br><span class="line">b <span class="comment">// "e"</span></span><br><span class="line">c <span class="comment">// "l"</span></span><br><span class="line">d <span class="comment">// "l"</span></span><br><span class="line">e <span class="comment">// "o"</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="4-数值的布尔值"><a href="#4-数值的布尔值" class="headerlink" title="(4)数值的布尔值"></a>(4)数值的布尔值</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> &#123;<span class="attr">toString</span>: s&#125; = <span class="number">123</span>;</span><br><span class="line">s === <span class="built_in">Number</span>.prototype.toString <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<p>解构赋值的规则是，只要等号右边的值不是对象或数组，就先将其转为对象。由于undefined和null无法转为对象，所以对它们进行解构赋值，都会报错</p>
+<h2 id="5-例子"><a href="#5-例子" class="headerlink" title="(5)例子"></a>(5)例子</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> x = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">let</span> y = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">[x, y] = [y, x];</span><br></pre></td></tr></table></figure>
         </div>
-       -->
-    </div>
-    
-      <div class="readmore">
-        <a href="/2019/05/09/others/miscellany_2/" class="flat-box">
-          <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
-          阅读全文
-        </a>
-      </div>
-    
-    
-      <div class="full-width auto-padding tags">
-        
-          <a href="/tags/杂记/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>杂记</a>
-        
-      </div>
-    
-  </section>
-</article>
-
-          </div>
-        
-      
-        
-          <div class="post-wrapper">
-            <article class="post reveal ">
-  
-
-
-  <section class="meta">
-    
-    
-    <div class="meta" id="header-meta">
-      
-        
-  <h2 class="title">
-    <a href="/2019/05/07/others/miscellany_1/">
-      论部门研发项目之怪现状
-    </a>
-  </h2>
-  
-
-
-      
-      <div class="new-meta-box">
         
           
-        
-          
-            
-  <div class="new-meta-item author">
-    <a href="https://lokya.github.io" rel="nofollow">
-      
-        <i class="fas fa-user" aria-hidden="true"></i>
-      
-      <p>Lokya</p>
-    </a>
-  </div>
 
 
-          
+  <section class="meta" id="footer-meta">
+    <hr>
+    <div class="new-meta-box">
+      
         
-          
-            <div class="new-meta-item date">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-06-12T09:47:55+08:00">
   <a class="notlink">
-    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-    <p>2019-05-07</p>
+    <i class="fas fa-clock" aria-hidden="true"></i>
+    <p>最后更新于 2019年6月12日</p>
   </a>
 </div>
 
-          
         
-          
-            
-  
-  <div class="new-meta-item category">
-    <a href="/categories/杂记/" rel="nofollow">
-      <i class="fas fa-folder-open" aria-hidden="true"></i>
-      <p>杂记</p>
-    </a>
-  </div>
-
-
-          
-        
-          
-            
-
-          
-        
-          
-            
-
-          
-        
-      </div>
       
-        <hr>
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/javascript/" rel="nofollow"><i class="fas fa-hashtag" aria-hidden="true"></i>&nbsp;<p>javascript</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/ES6/" rel="nofollow"><i class="fas fa-hashtag" aria-hidden="true"></i>&nbsp;<p>ES6</p></a></div>
+
+
+        
+      
+        
+          
+
+        
       
     </div>
   </section>
 
 
-  <section class="article typo fold-all">
-    <div class="article-entry" itemprop="articleBody">
-       
-        <p>新产品开发已一年有余，每思项目中之事，无不发现其怪。此怪异有能者不作为，无能者空哀怨。。。。</p>
-      
-      <!-- 
-        <div class="readmore">
-          <a href="/2019/05/07/others/miscellany_1/" class="flat-box">
-            <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
-            阅读全文
-          </a>
-        </div>
-       -->
-    </div>
-    
-      <div class="readmore">
-        <a href="/2019/05/07/others/miscellany_1/" class="flat-box">
-          <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
-          阅读全文
-        </a>
-      </div>
-    
-    
-      <div class="full-width auto-padding tags">
         
-          <a href="/tags/杂记/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>杂记</a>
         
-      </div>
-    
-  </section>
-</article>
-
-          </div>
+            <div class="prev-next">
+                
+                    <section class="prev">
+                        <span class="art-item-left">
+                            <h6><i class="fas fa-chevron-left" aria-hidden="true"></i>&nbsp;上一页</h6>
+                            <h4>
+                                <a href="/2019/06/14/notes/note1/" rel="prev" title="too many open files">
+                                  
+                                      too many open files
+                                  
+                                </a>
+                            </h4>
+                            
+                                
+                                <h6 class="tags">
+                                    <a class="tag" href="/tags/linux/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>linux</a> <a class="tag" href="/tags/note/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>note</a>
+                                </h6>
+                            
+                        </span>
+                    </section>
+                
+                
+                    <section class="next">
+                        <span class="art-item-right" aria-hidden="true">
+                            <h6>下一页&nbsp;<i class="fas fa-chevron-right" aria-hidden="true"></i></h6>
+                            <h4>
+                                <a href="/2019/05/09/others/miscellany_2/" rel="prev" title="声声慢">
+                                    
+                                        声声慢
+                                    
+                                </a>
+                            </h4>
+                            
+                                
+                                <h6 class="tags">
+                                    <a class="tag" href="/tags/杂记/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>杂记</a>
+                                </h6>
+                            
+                        </span>
+                    </section>
+                
+            </div>
         
-      
-        
-          <div class="post-wrapper">
-            <article class="post reveal ">
+      </section>
+    </article>
   
 
-
-  <section class="meta">
-    
-    
-    <div class="meta" id="header-meta">
-      
-        
-  <h2 class="title">
-    <a href="/2019/04/30/others/start/">
-      源
-    </a>
-  </h2>
   
+    <!-- 显示推荐文章和评论 -->
 
 
-      
-      <div class="new-meta-box">
-        
-          
-        
-          
-            
-  <div class="new-meta-item author">
-    <a href="https://lokya.github.io" rel="nofollow">
-      
-        <i class="fas fa-user" aria-hidden="true"></i>
-      
-      <p>Lokya</p>
-    </a>
-  </div>
-
-
-          
-        
-          
-            <div class="new-meta-item date">
-  <a class="notlink">
-    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-    <p>2019-04-30</p>
-  </a>
-</div>
-
-          
-        
-          
-            
-  
-  <div class="new-meta-item category">
-    <a href="/categories/杂记/" rel="nofollow">
-      <i class="fas fa-folder-open" aria-hidden="true"></i>
-      <p>杂记</p>
-    </a>
-  </div>
-
-
-          
-        
-          
-            
-
-          
-        
-          
-            
-
-          
-        
-      </div>
-      
-        <hr>
-      
-    </div>
-  </section>
-
-
-  <section class="article typo fold-all">
-    <div class="article-entry" itemprop="articleBody">
-       
-        <h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p>我一直是一个不太喜欢写博客和文章的人，从业这么久，不喜欢去csdn或者博客园去发布文章。总觉得有时间还是看看书，娱乐娱乐比较好。忽然觉得有一个属于自己的地方，发点自己想想写的挺不错的。</p>
-<h2 id="打算"><a href="#打算" class="headerlink" title="打算"></a>打算</h2><p>想利用这个博客写点自己的东西，不论是技术分享还是技术笔记，或者生活杂记，都记录下来。例如拍个照片，可以发上来，这是一种记忆。</p>
-<h2 id="Emmmm"><a href="#Emmmm" class="headerlink" title="Emmmm"></a>Emmmm</h2><p>其实也不知道说什么好，总之，希望利用好这个博客吧。</p>
-
-      
-      <!-- 
-        <div class="readmore">
-          <a href="/2019/04/30/others/start/" class="flat-box">
-            <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
-            阅读全文
-          </a>
-        </div>
-       -->
-    </div>
-    
-      <div class="readmore">
-        <a href="/2019/04/30/others/start/" class="flat-box">
-          <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
-          阅读全文
-        </a>
-      </div>
-    
-    
-  </section>
-</article>
-
-          </div>
-        
-      
-    
-  </section>
-  
-    
-    <!-- 根据主题中的设置决定是否在archive中针对摘要部分的MathJax公式加载mathjax.js文件 -->
-    
-    
 
   
 
 
-    
   
+
+
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+
+
+  <script>
+    window.subData = {
+      title: '变量的解构',
+      tools: true
+    }
+  </script>
+
 
 </div>
 <aside class="l_side">
@@ -638,6 +477,20 @@
           
           
             
+  <section class="widget toc-wrapper">
+    
+<header class="pure">
+  <div><i class="fas fa-list fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;本文目录</div>
+  
+    <div class="wrapper"><a class="s-toc rightBtn" rel="external nofollow noopener noreferrer" href="javascript:void(0)"><i class="fas fa-thumbtack fa-fw"></i></a></div>
+  
+</header>
+
+    <div class="content pure">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-数组"><span class="toc-text">(1) 数组</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-对象"><span class="toc-text">(2) 对象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-字符串"><span class="toc-text">(3)字符串</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-数值的布尔值"><span class="toc-text">(4)数值的布尔值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-例子"><span class="toc-text">(5)例子</span></a></li></ol>
+    </div>
+  </section>
+
 
           
         
