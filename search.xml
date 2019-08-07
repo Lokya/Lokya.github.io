@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>Git 不能推送远程分支</title>
+      <link href="/2019/08/07/knowledge/git/gitTips1/"/>
+      <url>/2019/08/07/knowledge/git/gitTips1/</url>
+      
+        <content type="html"><![CDATA[<h1 id="dst-refspec-XXX-matches-more-than-one"><a href="#dst-refspec-XXX-matches-more-than-one" class="headerlink" title="dst refspec XXX matches more than one"></a>dst refspec XXX matches more than one</h1><h2 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h2><p>项目中有个分支是 <code>1.1.0</code> 分支，用来进行升级和版本代码保留，这个分支最近被某个<code>坑货</code>给玩坏了，发现我本地的代码是完整保留的，于是要将代码推送到远程。</p><h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>我在执行下面的代码之后</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin --delete 1.1.0</span><br></pre></td></tr></table></figure><p>报错提示：</p><p>dst refspec XXX matches more than one</p><p>意思大概是具体的引用匹配到的不止一个。</p><p>查询相关资料发现，不推荐<code>分支</code>和 <code>tag</code> 名字完全一样。。。</p><p>当远程仓库同时存在相同名称的 <code>branch</code> 和 <code>tag</code> 时，不指明绝对路径的前提下，操作这个名称的 <code>branch</code> 和 <code>tag</code> 都会出现这个问题。</p><h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><p>我在项目中去搜索发现同样命名为 <code>1.1.0</code>的<code>branch</code>和命名为 <code>1.1.0</code>的 <code>tag</code> ，于是在删除远程分支的时候，搜索到的匹配就不只一个。</p><h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><h3 id="1、删除"><a href="#1、删除" class="headerlink" title="1、删除"></a>1、删除</h3><ol><li><p>检出 <code>tag</code>,然后进行重命名或者基于它新建 <code>tag</code> 。</p></li><li><p>然后再通过命令去删除远程分支。</p></li><li><p>推送<code>tag</code>到远程</p></li></ol><h3 id="2、使用绝对路径"><a href="#2、使用绝对路径" class="headerlink" title="2、使用绝对路径"></a>2、使用绝对路径</h3><ol><li>直接指明绝对路径</li></ol><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git push origin :refs/heads/1.1.0</span><br></pre></td></tr></table></figure><ol start="2"><li>如果是推代码带<code>tag</code></li></ol><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git push origin :refs/tags/1.1.0</span><br></pre></td></tr></table></figure><h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>我比较推荐使用第二种方法，当然这次的做法可以直接去仓库进行手动分支删除，一切可视化操作，但是使用命令去实现更能了解一些<code>git</code>的知识。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Git </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Git </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>前端版本控制</title>
       <link href="/2019/08/05/knowledge/git/versionControl/"/>
       <url>/2019/08/05/knowledge/git/versionControl/</url>
