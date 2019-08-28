@@ -4,6 +4,56 @@
   
     
     <entry>
+      <title>Git 子模块</title>
+      <link href="/2019/08/26/knowledge/git/gitSubmodle/"/>
+      <url>/2019/08/26/knowledge/git/gitSubmodle/</url>
+      
+        <content type="html"><![CDATA[<h1 id="Git-子模块"><a href="#Git-子模块" class="headerlink" title="Git 子模块"></a>Git 子模块</h1><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p><code>git子模块</code>，即 <code>git submodule</code>, 是一种在一个 <code>git</code> 仓库中嵌套另外一个 <code>git</code> 仓库代码的实现方式。</p><p>有时候我们需要将一些代码放到一个仓库中，由其他人进行开发和维护，而在另外一个项目中，只需要引入这个仓库中的代码，并不对代码进行修改这种情形。我们就可以使用 <code>git submodule</code> 来实现。</p><p>形象一点说明：我要搭建一个博客，博客的结构如下</p><p>blog<br>    ├── content<br>    ├── index.html<br>    ├── public<br>    ├── theme<br>    └── conf文件</p><p>里面的 <code>theme</code> 文件夹内容是我的博客主题，可以自己手动去写，也可以找好看的主题进行魔改。但是在魔改后我又想提交到自己的仓库进行存储。这种时候可以把 <code>theme</code> 文件夹下面的代码放到一个 <code>git</code> 仓库中。然后整个博客工程放到一个 <code>git</code> 仓库中。 使用 <code>git submodule</code> 结合起来。</p><h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><h3 id="添加"><a href="#添加" class="headerlink" title="添加"></a>添加</h3><p>子模块的使用很简单，拿到子模块的 <code>git</code> 仓库地址。在项目的根文件夹下执行添加 <code>git submodule</code> 命令。</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span> git submodule add -b develop https://code.xxxxxx.com.cn/lokya-theme.git theme/lokya-theme</span><br></pre></td></tr></table></figure><p>解释下上面的命令，上面的命令是个组合命令，实现的效果是给当前项目添加子模块，添加的是子模块的 <code>develop</code> 分支，将代码放到 <code>theme</code> 文件夹下，名称为 <code>lokya-theme</code>。</p><ul><li>git submodule add <a href="https://code.xxxxxx.com.cn/lokya-theme.git" target="_blank" rel="noopener">https://code.xxxxxx.com.cn/lokya-theme.git</a><br>  添加仓库</li><li>git submodule add -b develop <a href="https://code.xxxxxx.com.cn/lokya-theme.git" target="_blank" rel="noopener">https://code.xxxxxx.com.cn/lokya-theme.git</a><br>  添加仓库的 <code>develop</code> 代码</li><li>git submodule add <a href="https://code.xxxxxx.com.cn/lokya-theme.git" target="_blank" rel="noopener">https://code.xxxxxx.com.cn/lokya-theme.git</a> theme/lokya-theme<br>  将代码放到theme文件夹中，命名为 <code>lokya-theme</code></li></ul><p>这样就把子模块添加进去了。</p><h3 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h3><p>子模块的初始化可以使用一下命令，也可直接组合使用</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span> git clone &lt;repository&gt; --recursive 递归的方式克隆整个项目</span><br><span class="line"><span class="meta">&gt;</span> git submodule init 初始化子模块</span><br><span class="line"><span class="meta">&gt;</span> git submodule update 更新子模块</span><br></pre></td></tr></table></figure><p>组合使用</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span> git submodule update --init --recursive</span><br></pre></td></tr></table></figure><h3 id="多个子模块使用"><a href="#多个子模块使用" class="headerlink" title="多个子模块使用"></a>多个子模块使用</h3><p>可以使用多个子模块，使用 <code>git submodule add</code> 添加多个 git 子模块</p><h3 id="统一操作子模块"><a href="#统一操作子模块" class="headerlink" title="统一操作子模块"></a>统一操作子模块</h3><p>可以使用 <code>git submodule foreach</code> 来进行批量操作子模块，比如所有子模块切换分支和拉取代码</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span> git submodule foreach git checkout develop</span><br><span class="line"><span class="meta">&gt;</span> git submodule foreach git pull</span><br></pre></td></tr></table></figure><h2 id="踩坑记录"><a href="#踩坑记录" class="headerlink" title="踩坑记录"></a>踩坑记录</h2><h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>在多个子模块进行 <code>docker</code> 打镜像的时候，初始化仓库拉取不到代码。</p><p>由于在 <code>runner</code> 中设置不了 <code>git</code> 仓库的账号密码，拉取不到。</p><h3 id="问题解决"><a href="#问题解决" class="headerlink" title="问题解决"></a>问题解决</h3><p>由于我这边子模块和主工程的仓库在同一个账号下，于是修改 <code>.gitmodules</code> 文件</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[submodule &quot;theme/lokya-theme&quot;]</span><br><span class="line">path = theme/lokya-theme</span><br><span class="line">url = https://code.xxxxxx.com.cn/lokya-theme.git</span><br><span class="line">branch = develop</span><br></pre></td></tr></table></figure><p>修改为</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[submodule &quot;theme/lokya-theme&quot;]</span><br><span class="line">path = theme/lokya-theme</span><br><span class="line">url = ../../lokya-theme.git</span><br><span class="line">branch = develop</span><br></pre></td></tr></table></figure><p>通过相对路径去获取 <code>git</code> 仓库，这样可以默认使用同一套账号密码，子模块也可以进行代码拉取。</p><h2 id="反思总结"><a href="#反思总结" class="headerlink" title="反思总结"></a>反思总结</h2><p><code>git submodule</code> 是一种很好的解决多个库拆分、组合的方式，可以完全避免代码冲突，多人权限维护等。</p><p>但是 <code>git submodule</code> 的使用时候要注意每次切换分支都会将子模块的提交指向游离态，需要手动去切换分支拉取最新的子模块代码。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Git </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Git </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>前端项目拆库</title>
+      <link href="/2019/08/26/knowledge/git/gitRepoSplit/"/>
+      <url>/2019/08/26/knowledge/git/gitRepoSplit/</url>
+      
+        <content type="html"><![CDATA[<h1 id="前端代码拆库"><a href="#前端代码拆库" class="headerlink" title="前端代码拆库"></a>前端代码拆库</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><h3 id="Monorepo-和-Multirepo"><a href="#Monorepo-和-Multirepo" class="headerlink" title="Monorepo 和 Multirepo"></a>Monorepo 和 Multirepo</h3><p><strong>Monorepo</strong></p><p><code>Monorepo</code> 是管理项目代码的一个方式，指在一个项目仓库 (<code>repo</code>) 中管理多个模块/包 (<code>package</code>)，不同于常见的每个模块建一个 <code>repo</code>。而 <code>lerna</code> 是 <code>Monorepo</code> 目前最好的一种解决方案，通过 <code>lerna</code> 的一些命令，例如 <code>lerna run xxx</code> 可以统一对各个模块进行操作。</p><p><strong>Multirepo</strong></p><p><code>Multirepo</code> 从字面意思上来说就是多个 <code>repo</code> ，每个模块或者项目创建各自的仓库，单独开发维护，相互之间调用只能以npm包的形式或者使用 <code>git</code> 子模块。</p><hr><p>我们的项目之前是基于 <code>monorepo</code> 形式创建的，即多个子工程在一个项目中管理，然后使用 <code>lerna</code> 管理工具，统一对 packages 文件夹下面的子模块进行管理。</p><p>由于项目前后端分离、前端工程和后端工程版本要保持对应一致、要部署到多个不同的环境、同时我们又要引入其他部门的基础服务代码，这一系列的要求就导致项目使用monorepo的模式进行不下去。</p><p>举个例子</p><ol><li>开发环境和测试环境配置不相同。</li><li>测试环境中的基础服务包版本和开发环境中版本不一致，即在 develop 环境，使用的某个基础服务包版本为 1.1.9， test 环境使用的版本是1.0.9，因为两个环境的后端版本不相同，前端也要保持统一。</li><li>开发在各自模块下进行开发，每个团队要在自己组所属模块下面开发，不方便区分哪些代码进行开发，哪些代码进行提测。</li></ol><p>基于以上情况，这边对代码进行拆分。</p><h2 id="仓库、分支介绍"><a href="#仓库、分支介绍" class="headerlink" title="仓库、分支介绍"></a>仓库、分支介绍</h2><p>将代码拆分成以下几种 <code>git</code> 仓库</p><ul><li><strong>front-code</strong>: 前端纯净仓库，不包含任何业务代码，所有新模块都基于此代码进行初始化。</li><li><strong>front-[模块缩写]</strong>: 各个子模块的工程，只包含每个模块的功能代码。</li><li><strong>front-boot</strong>: 前端基础模块仓库，项目所需要的一些公共组件，方法，基础引用都在此模块中，每个子模块都要引入的模块。</li><li><strong>front-core</strong>: 前端框架仓库，前端测试环境，开发环境，发布环境都基于此仓库进行部署。</li></ul><p>原本项目中没有<code>boot</code>这个模块，综合考虑下来，应该建立一个公共模块，让所有的子模块都依赖，并且将公共内容放到这个模块中，之后对于公共内容的新增、修改都只需要改动这一个模块，然后发布 <code>npm包</code> ，小版本直接升级依赖即可, boot 这个模块要引入到各个模块的 <code>devDependencies</code> 中，可以防止重复打包.</p><p>顺便拆了个纯净仓库，项目以后的开发会有其他项目，可以直接基于这个项目工程拿取代码进行开发，基本的配置都配置完成。‘</p><p><code>front-core</code> 这个仓库 分成 <code>master</code> <code>test</code> <code>develop</code> 这几个分支，其中 <code>master</code> 分支为正式环境发布分支，没有任何业务代码，全部引入的是文档打版的 <code>npm包</code>。 <code>test</code> 分支为测试环境的发布分支，使用 <code>git子模块</code> 将各个子模块的 <code>test</code> 分支代码进行引入。 <code>develop</code> 分支为开发环境的发布分支，同样使用 <code>git子模块</code> 将各个子模块的 <code>develop</code> 分支代码进行引入。</p><p><code>front-[模块缩写]</code>这种命名的仓库就分配到各个组，由各个组创建 develop 和 test 分支进行开发，完全解决组之间代码冲突的问题。</p><h2 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h2><h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><ol><li>各组负责自己模块，避免组间冲突，同时减轻前端管理组的压力。</li><li>可针对各种前端发布条件进行修改，各组、依赖模块、基础模块等都完全区分开，不相互影响。</li><li>前端启动项目所消耗时间减少，提升开发效率。</li><li>公共模块提取了代码，减少冗余代码，项目更清晰简洁。</li></ol><h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><ol><li>各组人员的 <code>git</code> 水准参差不齐， 对各组负责人来说压力增大。</li><li>组件模块相互依赖，需要实时沟通，一旦版本不统一，最终会出现多版本打包。</li></ol><h2 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h2><ul><li>Monorepo</li><li>Multirepo</li><li>Git Submodule</li><li>Git Flow</li><li>devDependencies 和 dependencies 的区别</li></ul><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>整个拆库从构思到测试、建库、正式发布、讲解持续了近2周。只要思路通了，整个模式都玩的通，剩下的就是完善模块，让模块更纯粹和简洁。</p><p>后续还准备将 front-code 做成脚手架，使用脚手架创建项目，将一些简单的命令集成进来，使得管理方便。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Git </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Git </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Git 不能推送远程分支</title>
       <link href="/2019/08/07/knowledge/git/gitTips1/"/>
       <url>/2019/08/07/knowledge/git/gitTips1/</url>
