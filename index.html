@@ -336,7 +336,7 @@
 <p>blog<br>    ├── content<br>    ├── index.html<br>    ├── public<br>    ├── theme<br>    └── conf文件</p>
 <p>里面的 <code>theme</code> 文件夹内容是我的博客主题，可以自己手动去写，也可以找好看的主题进行魔改。但是在魔改后我又想提交到自己的仓库进行存储。这种时候可以把 <code>theme</code> 文件夹下面的代码放到一个 <code>git</code> 仓库中。然后整个博客工程放到一个 <code>git</code> 仓库中。 使用 <code>git submodule</code> 结合起来。</p>
 <h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><h3 id="添加"><a href="#添加" class="headerlink" title="添加"></a>添加</h3><p>子模块的使用很简单，拿到子模块的 <code>git</code> 仓库地址。在项目的根文件夹下执行添加 <code>git submodule</code> 命令。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span> git submodule add -b develop https://code.xxxxxx.com.cn/lokya-theme.git theme/lokya-theme</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> git submodule add -b develop https://code.xxxxxx.com.cn/lokya-theme.git theme/lokya-theme</span></span><br></pre></td></tr></table></figure>
 <p>解释下上面的命令，上面的命令是个组合命令，实现的效果是给当前项目添加子模块，添加的是子模块的 <code>develop</code> 分支，将代码放到 <code>theme</code> 文件夹下，名称为 <code>lokya-theme</code>。</p>
 <ul>
 <li>git submodule add <a href="https://code.xxxxxx.com.cn/lokya-theme.git" target="_blank" rel="noopener">https://code.xxxxxx.com.cn/lokya-theme.git</a><br>  添加仓库</li>
@@ -345,12 +345,12 @@
 </ul>
 <p>这样就把子模块添加进去了。</p>
 <h3 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h3><p>子模块的初始化可以使用一下命令，也可直接组合使用</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span> git clone &lt;repository&gt; --recursive 递归的方式克隆整个项目</span><br><span class="line"><span class="meta">&gt;</span> git submodule init 初始化子模块</span><br><span class="line"><span class="meta">&gt;</span> git submodule update 更新子模块</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> git <span class="built_in">clone</span> &lt;repository&gt; --recursive 递归的方式克隆整个项目</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> git submodule init 初始化子模块</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> git submodule update 更新子模块</span></span><br></pre></td></tr></table></figure>
 <p>组合使用</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span> git submodule update --init --recursive</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> git submodule update --init --recursive</span></span><br></pre></td></tr></table></figure>
 <h3 id="多个子模块使用"><a href="#多个子模块使用" class="headerlink" title="多个子模块使用"></a>多个子模块使用</h3><p>可以使用多个子模块，使用 <code>git submodule add</code> 添加多个 git 子模块</p>
 <h3 id="统一操作子模块"><a href="#统一操作子模块" class="headerlink" title="统一操作子模块"></a>统一操作子模块</h3><p>可以使用 <code>git submodule foreach</code> 来进行批量操作子模块，比如所有子模块切换分支和拉取代码</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span> git submodule foreach git checkout develop</span><br><span class="line"><span class="meta">&gt;</span> git submodule foreach git pull</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> git submodule foreach git checkout develop</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> git submodule foreach git pull</span></span><br></pre></td></tr></table></figure>
 <h2 id="踩坑记录"><a href="#踩坑记录" class="headerlink" title="踩坑记录"></a>踩坑记录</h2><h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>在多个子模块进行 <code>docker</code> 打镜像的时候，初始化仓库拉取不到代码。</p>
 <p>由于在 <code>runner</code> 中设置不了 <code>git</code> 仓库的账号密码，拉取不到。</p>
 <h3 id="问题解决"><a href="#问题解决" class="headerlink" title="问题解决"></a>问题解决</h3><p>由于我这边子模块和主工程的仓库在同一个账号下，于是修改 <code>.gitmodules</code> 文件</p>
