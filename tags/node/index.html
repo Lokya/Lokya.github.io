@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   
-  <title>个人摄影 - 第一期 | Lokya</title>
+  <title>Tag: node | Lokya</title>
   
   
-  <meta name="description" content="拍照摄影, lokya lokya blog">
+  <meta name="description" content="lokya lokya blog">
   
 
   
@@ -48,7 +48,7 @@
   
   
   <div class="cover-wrapper">
-    <cover class="cover post half">
+    <cover class="cover  half">
       
         
   <h1 class="title">
@@ -213,12 +213,25 @@
 
   <div class="l_body">
     <div class='body-wrapper'>
-      <div class="l_main">
-  
-
-  
-    <article id="post" class="post white-box article-type-post" itemscope itemprop="blogPost">
       
+<div class="l_main">
+  
+    
+      
+  <section class="post-list">
+    
+      
+        
+          
+        
+      
+    
+    
+      
+        
+          <div class="post-wrapper">
+            <article class="post reveal ">
+  
 
 
   <section class="meta">
@@ -227,13 +240,11 @@
     <div class="meta" id="header-meta">
       
         
-  
-    <h1 class="title">
-      <a href="/2019/05/06/shoot/shoot_1/">
-        个人摄影 - 第一期
-      </a>
-    </h1>
-    拍照摄影
+  <h2 class="title">
+    <a href="/2019/10/28/notes/note2/">
+      node is incompatible with this module
+    </a>
+  </h2>
   
 
 
@@ -260,7 +271,7 @@
             <div class="new-meta-item date">
   <a class="notlink">
     <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-    <p>2019-05-06</p>
+    <p>2019-10-28</p>
   </a>
 </div>
 
@@ -270,9 +281,9 @@
             
   
   <div class="new-meta-item category">
-    <a href="/categories/拍照摄影/" rel="nofollow">
+    <a href="/categories/node/" rel="nofollow">
       <i class="fas fa-folder-open" aria-hidden="true"></i>
-      <p>拍照摄影</p>
+      <p>node</p>
     </a>
   </div>
 
@@ -281,19 +292,6 @@
         
           
             
-  
-    <div class="new-meta-item browse busuanzi">
-      <a class="notlink">
-        <i class="fas fa-eye" aria-hidden="true"></i>
-        <p>
-          <span id="busuanzi_value_page_pv">
-            <i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i>
-          </span>
-        </p>
-      </a>
-    </div>
-  
-
 
           
         
@@ -310,129 +308,86 @@
   </section>
 
 
-      <section class="article typo">
-        <div class="article-entry" itemprop="articleBody">
-          <p><img src="/images/shoot/img_20180519.jpg" alt="img" title="雨后，公司旁边的黄色花朵"></p>
-<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><blockquote>
-<p>拍摄时间 - 2018年05月19日</p>
-</blockquote>
-<blockquote>
-<p>地点 - 公司旁小路</p>
-</blockquote>
-<h2 id="闲谈"><a href="#闲谈" class="headerlink" title="闲谈"></a>闲谈</h2><p>天色阴暗，雨势渐小。雨珠在花和叶上欢乐的跳动。从叫做叶的平台跳下，落在地上，渗进土里。梦着下次和花的轮回。</p>
-<h2 id="备注"><a href="#备注" class="headerlink" title="备注"></a>备注</h2><p><strong>图片是我自己拍的，如果要转发和使用，请打声招呼，或者注明出处。</strong></p>
-<p><strong>请勿私自盗用，谢谢</strong></p>
+  <section class="article typo fold-all">
+    <div class="article-entry" itemprop="articleBody">
+       
+        <h1 id="“node”-is-incompatible-with-this-module"><a href="#“node”-is-incompatible-with-this-module" class="headerlink" title="“node” is incompatible with this module"></a>“node” is incompatible with this module</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>今天在执行 <code>yarn</code> 进行安装的时候，服务器报错 <code>error file-loader@2.0.0: The engine &quot;node&quot; is incompatible with this module. Expected version &quot;&gt;= 6.0.0</code></p>
+<p>一开始以为是 <code>node</code> 版本问题，但是执行 <code>node -v</code> 后发现 <code>node</code> 版本是 <code>v8.12.0</code>, 版本完全大于 <code>6.0.0</code></p>
+<p>查询后需要忽略 <code>yarn</code> 的引擎检查</p>
+<p>执行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span> yarn config set ignore-engines true</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span>或者</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;</span> yarn --ignore-engines</span><br></pre></td></tr></table></figure>
+<p>即可执行成功。</p>
+<h2 id="备注"><a href="#备注" class="headerlink" title="备注"></a>备注</h2><p>在这里再添加点 <code>yarn</code> 官网的一些操作</p>
+<p><code>yarn install</code>用于安装一个项目的所有依赖。 这个命令最常见的使用场景是在你刚<code>Check out</code>一份项目代码之后，或者在你需要使用其他开发者新增加的项目依赖的时候。</p>
+<p>如果习惯使用 <code>npm</code> ， 你可能希望使用<code>--save</code> 或 <code>--save-dev</code>， 这些已经被 <code>yarn add</code> 和 <code>yarn add --dev</code> 所取代。</p>
+<p>执行不带任何命令的 <code>yarn</code>，等同于执行<code>yarn install</code>，并透传所有参数。</p>
+<p>如果需要可重现的依赖环境（比如在持续集成系统中），应该传入 <code>--frozen-lockfile</code> 标志。</p>
+<h3 id="yarn-install"><a href="#yarn-install" class="headerlink" title="yarn install"></a>yarn install</h3><p>在本地 <code>node_modules</code> 目录安装 <code>package.json</code> 里列出的所有依赖。</p>
+<h3 id="yarn-install-–check-files"><a href="#yarn-install-–check-files" class="headerlink" title="yarn install –check-files"></a>yarn install –check-files</h3><p>验证 <code>node_modules</code> 中已安装的文件没有被移除。</p>
+<h3 id="yarn-install-–flat"><a href="#yarn-install-–flat" class="headerlink" title="yarn install –flat"></a>yarn install –flat</h3><p>安装所有依赖，但每个依赖只允许有一个版本存在。 第一次运行这个命令时，会提示你在每个依赖包的多个版本范围中选择一个版本。 这会被添加到你的 <code>package.json</code> 文件的 <code>resolutions</code> 字段。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">"resolutions": &#123;</span><br><span class="line">  "package-a": "2.0.0",</span><br><span class="line">  "package-b": "5.0.0",</span><br><span class="line">  "package-c": "1.5.2"</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="yarn-install-–force"><a href="#yarn-install-–force" class="headerlink" title="yarn install –force"></a>yarn install –force</h3><p>这回重新拉取所有包，即使之前已经安装的。</p>
+<h3 id="yarn-install-–har"><a href="#yarn-install-–har" class="headerlink" title="yarn install –har"></a>yarn install –har</h3><p>从安装期间的所有网络请求输出一个 <code>HTTP archive</code>。 <code>HAR</code> 文件通常用于排查网络性能，并能用 <code>Google’s HAR Analyzer</code> 或 <code>HAR Viewer</code> 这样的工具分析。</p>
+<h3 id="yarn-install-–ignore-scripts"><a href="#yarn-install-–ignore-scripts" class="headerlink" title="yarn install –ignore-scripts"></a>yarn install –ignore-scripts</h3><p>不执行项目 <code>package.json</code> 及其依赖定义的任何脚本。</p>
+<h3 id="yarn-install-–modules-folder"><a href="#yarn-install-–modules-folder" class="headerlink" title="yarn install –modules-folder "></a>yarn install –modules-folder <path></path></h3><p>为 <code>node_modules</code> 目录指定另一位置，代替默认的 <code>./node_modules</code>。</p>
+<h3 id="yarn-install-–no-lockfile"><a href="#yarn-install-–no-lockfile" class="headerlink" title="yarn install –no-lockfile"></a>yarn install –no-lockfile</h3><p>不读取或生成 <code>yarn.lock</code> 锁文件。</p>
+<h3 id="yarn-install-–production-true-false"><a href="#yarn-install-–production-true-false" class="headerlink" title="yarn install –production[=true|false]"></a>yarn install –production[=true|false]</h3><p>如果 <code>NODE_ENV</code> 环境变量设为 <code>production</code>，<code>Yarn</code> 将不安装任何列于 <code>devDependencies</code> 的包。 使用此标志指示 <code>Yarn</code> 忽略 <code>NODE_ENV</code> 并用它取代“生产”与否的状态。</p>
+<p>注意： <code>--production</code> 等同 <code>--production=true</code>。<code>--prod</code> 是 <code>--production</code> 的别名。</p>
+<h3 id="yarn-install-–pure-lockfile"><a href="#yarn-install-–pure-lockfile" class="headerlink" title="yarn install –pure-lockfile"></a>yarn install –pure-lockfile</h3><p>不生成 <code>yarn.lock</code> 锁文件。</p>
+<h3 id="yarn-install-–frozen-lockfile"><a href="#yarn-install-–frozen-lockfile" class="headerlink" title="yarn install –frozen-lockfile"></a>yarn install –frozen-lockfile</h3><p>不生成 <code>yarn.lock</code> 锁文件，并且，如果需要更新则会报错。</p>
+<h3 id="yarn-install-–silent"><a href="#yarn-install-–silent" class="headerlink" title="yarn install –silent"></a>yarn install –silent</h3><p>执行 <code>yarn install</code> 而不显示安装日志</p>
+<h3 id="yarn-install-–ignore-engines"><a href="#yarn-install-–ignore-engines" class="headerlink" title="yarn install –ignore-engines"></a>yarn install –ignore-engines</h3><p>忽略引擎检查。</p>
+<h3 id="yarn-install-–ignore-optional"><a href="#yarn-install-–ignore-optional" class="headerlink" title="yarn install –ignore-optional"></a>yarn install –ignore-optional</h3><p>不安装可选依赖。</p>
+<h3 id="yarn-install-–offline"><a href="#yarn-install-–offline" class="headerlink" title="yarn install –offline"></a>yarn install –offline</h3><p>运行 <code>yarn install</code> 于离线模式。</p>
+<h3 id="yarn-install-–non-interactive"><a href="#yarn-install-–non-interactive" class="headerlink" title="yarn install –non-interactive"></a>yarn install –non-interactive</h3><p>禁用询问交互，比如当没有合适版本的依赖时</p>
+<h3 id="yarn-install-–update-checksums"><a href="#yarn-install-–update-checksums" class="headerlink" title="yarn install –update-checksums"></a>yarn install –update-checksums</h3><p>当跟对应包的校验和不一致时， 更新 <code>yarn.lock</code> 锁文件的校验和</p>
 
+      
+      <!-- 
+        <div class="readmore">
+          <a href="/2019/10/28/notes/note2/" class="flat-box">
+            <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
+            阅读全文
+          </a>
         </div>
-        
-          
-
-
-  <section class="meta" id="footer-meta">
-    <hr>
-    <div class="new-meta-box">
-      
-        
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-05-06T23:09:02+08:00">
-  <a class="notlink">
-    <i class="fas fa-clock" aria-hidden="true"></i>
-    <p>最后更新于 2019年5月6日</p>
-  </a>
-</div>
-
-        
-      
-        
-          
-  
-  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/拍照摄影/" rel="nofollow"><i class="fas fa-hashtag" aria-hidden="true"></i>&nbsp;<p>拍照摄影</p></a></div>
-
-
-        
-      
-        
-          
-
-        
-      
+       -->
     </div>
+    
+      <div class="readmore">
+        <a href="/2019/10/28/notes/note2/" class="flat-box">
+          <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
+          阅读全文
+        </a>
+      </div>
+    
+    
+      <div class="full-width auto-padding tags">
+        
+          <a href="/tags/note/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>note</a>
+        
+          <a href="/tags/node/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>node</a>
+        
+      </div>
+    
   </section>
+</article>
 
-
+          </div>
         
-        
-            <div class="prev-next">
-                
-                    <section class="prev">
-                        <span class="art-item-left">
-                            <h6><i class="fas fa-chevron-left" aria-hidden="true"></i>&nbsp;上一页</h6>
-                            <h4>
-                                <a href="/2019/05/07/others/miscellany_1/" rel="prev" title="论部门研发项目之怪现状">
-                                  
-                                      论部门研发项目之怪现状
-                                  
-                                </a>
-                            </h4>
-                            
-                                
-                                <h6 class="tags">
-                                    <a class="tag" href="/tags/杂记/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>杂记</a>
-                                </h6>
-                            
-                        </span>
-                    </section>
-                
-                
-                    <section class="next">
-                        <span class="art-item-right" aria-hidden="true">
-                            <h6>下一页&nbsp;<i class="fas fa-chevron-right" aria-hidden="true"></i></h6>
-                            <h4>
-                                <a href="/2019/05/06/knowledge/es6/lesson_1/" rel="prev" title="ES6-变量">
-                                    
-                                        ES6-变量
-                                    
-                                </a>
-                            </h4>
-                            
-                                
-                                <h6 class="tags">
-                                    <a class="tag" href="/tags/javascript/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>javascript</a> <a class="tag" href="/tags/ES6/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>ES6</a>
-                                </h6>
-                            
-                        </span>
-                    </section>
-                
-            </div>
-        
-      </section>
-    </article>
+      
+    
+  </section>
   
-
-  
-    <!-- 显示推荐文章和评论 -->
-
-
+    
+    <!-- 根据主题中的设置决定是否在archive中针对摘要部分的MathJax公式加载mathjax.js文件 -->
+    
+    
 
   
 
 
+    
   
-
-
-
-
-<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
-
-
-
-  <script>
-    window.subData = {
-      title: '个人摄影 - 第一期',
-      tools: true
-    }
-  </script>
-
-
 </div>
 <aside class="l_side">
   
@@ -480,20 +435,6 @@
           
           
             
-  <section class="widget toc-wrapper">
-    
-<header class="pure">
-  <div><i class="fas fa-list fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;本文目录</div>
-  
-    <div class="wrapper"><a class="s-toc rightBtn" rel="external nofollow noopener noreferrer" href="javascript:void(0)"><i class="fas fa-thumbtack fa-fw"></i></a></div>
-  
-</header>
-
-    <div class="content pure">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#介绍"><span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#闲谈"><span class="toc-text">闲谈</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#备注"><span class="toc-text">备注</span></a></li></ol>
-    </div>
-  </section>
-
 
           
         
