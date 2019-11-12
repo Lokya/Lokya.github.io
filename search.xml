@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>Xcode 报错解决记录</title>
+      <link href="/2019/11/12/knowledge/reactNative/react_native_1/"/>
+      <url>/2019/11/12/knowledge/reactNative/react_native_1/</url>
+      
+        <content type="html"><![CDATA[<h1 id="Xcode-library-not-found-for-l-xxxx-报错问题定位"><a href="#Xcode-library-not-found-for-l-xxxx-报错问题定位" class="headerlink" title="Xcode: library not found for -l xxxx 报错问题定位"></a>Xcode: library not found for -l xxxx 报错问题定位</h1><p>最近在进行 react native 的学习和使用，在使用 Xcode 进行打包的时候，经常会看见 library not found for -lxxx 的这种报错。结合网络上给的资料和自己的一些分析，做一个记录吧。</p><h2 id="问题分析"><a href="#问题分析" class="headerlink" title="问题分析"></a>问题分析</h2><p>这个问题其实就是第三方库没有加载到导致的保存。</p><h2 id="问题处理"><a href="#问题处理" class="headerlink" title="问题处理"></a>问题处理</h2><h3 id="pod-安装包"><a href="#pod-安装包" class="headerlink" title="pod 安装包"></a>pod 安装包</h3><p>IOS 的环境有一部分人是使用 cocoapods 来进行包管理的，所以可以怀疑是第三方库没有安装。</p><p>在 ios 文件夹下执行以下语句</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pod deintegrate </span><br><span class="line"></span><br><span class="line">pod instll</span><br></pre></td></tr></table></figure><p>一般会解决大部分问题</p><h3 id="添加搜索路径"><a href="#添加搜索路径" class="headerlink" title="添加搜索路径"></a>添加搜索路径</h3><p>Xcode &gt; Target &gt; Build Settings &gt; 搜索 Library Search Path</p><p>在里面添加第三方库的路径</p><h3 id="文件目录变动"><a href="#文件目录变动" class="headerlink" title="文件目录变动"></a>文件目录变动</h3><p>有可能项目中的一些静态文件位置移动，毕竟项目是由多人开发的</p><p>Xcode &gt; Target &gt; Build Phases &gt; Link binary With Libraries</p><p>然后查看引入的文件，是否有红色提示，如果是红色的话说明这个文件位置进行的变动，现在找不到。</p><p>可以在选中红色文件右键 Reveal in Project Navigator 然后定位一下，或者手动去寻找文件位置。重新引入即可。</p><h3 id="项目部分文件被篡改"><a href="#项目部分文件被篡改" class="headerlink" title="项目部分文件被篡改"></a>项目部分文件被篡改</h3><p>这种问题就比较恶心了，有可能其他人在操作项目的时候执行了一些命令，撤销的时候有文件残留导致的或者引起了一些路径变化不可逆。</p><p>如果可以使用 git 的话，查看文件变动，还原后再调试启动，定位解决。</p><p>推荐以上3中方法不可以解决问题的话，重新创建项目，然后一步一步迁移原工程代码中进行进行测试，当然这个是最傻最笨的办法。</p><h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p>Xcode 的坑有时候还是蛮多的，后续还会再开一个文档写Xcode的一些常见问题的解决。。。。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> react-native </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> react-native </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>node is incompatible with this module</title>
       <link href="/2019/10/28/notes/note2/"/>
       <url>/2019/10/28/notes/note2/</url>
