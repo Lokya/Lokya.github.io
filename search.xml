@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>filter - 网页灰色效果</title>
+      <link href="/2019/12/13/knowledge/css/css1/"/>
+      <url>/2019/12/13/knowledge/css/css1/</url>
+      
+        <content type="html"><![CDATA[<h1 id="网页灰色效果"><a href="#网页灰色效果" class="headerlink" title="网页灰色效果"></a>网页灰色效果</h1><p>百度百科在有人去世会把搜索信息页面灰化，今天访问b站的时候发现在公祭日这一天b站也全站灰化，各网站都以一种互联网的风格来哀悼死者。</p><p>哀悼的同时给大家顺便讲下全网站灰色化的实现。</p><h2 id="filter-滤镜"><a href="#filter-滤镜" class="headerlink" title="filter(滤镜)"></a>filter(滤镜)</h2><h3 id="用法："><a href="#用法：" class="headerlink" title="用法："></a>用法：</h3><p>filter: none | blur() | brightness() | contrast() | drop-shadow() | grayscale() | hue-rotate() | invert() | opacity() | saturate() | sepia() | url();</p><h3 id="说明："><a href="#说明：" class="headerlink" title="说明："></a>说明：</h3><ul><li>none: 默认值。</li><li>blur(): 给图像设置高斯模糊。</li><li>brightness(): 给图片应用一种线性乘法，使其看起来更亮或更暗。</li><li>contrast(): 调整图像的对比度。</li><li>drop-shadow(): 给图像设置一个阴影效果</li><li>grayscale(): 将图像转换为灰度图像。</li><li>hue-rotate(): 给图像应用色相旋转。</li><li>invert(): 反转输入图像。</li><li>opacity(): 转化图像的透明程度。</li><li>saturate(): 转换图像饱和度。</li><li>sepia(): 将图像转换为深褐色。</li><li>url(): URL函数接受一个XML文件，该文件设置了一个SVG滤镜，且可以包含一个锚点来指定一个具体的滤镜元素。</li></ul><h3 id="兼容性"><a href="#兼容性" class="headerlink" title="兼容性"></a>兼容性</h3><p><img src="https://user-gold-cdn.xitu.io/2019/12/13/16efde4e93ba4c52?w=2024&amp;h=648&amp;f=png&amp;s=128012" alt></p><h2 id="网站灰色实现"><a href="#网站灰色实现" class="headerlink" title="网站灰色实现"></a>网站灰色实现</h2><h3 id="使用-grayscale-来实现效果。"><a href="#使用-grayscale-来实现效果。" class="headerlink" title="使用 grayscale 来实现效果。"></a>使用 <code>grayscale</code> 来实现效果。</h3><p>可以设置 grayscale(100%); 来图像转换为灰度图像。</p><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">html</span> &#123;</span><br><span class="line">    <span class="attribute">filter</span>: <span class="built_in">grayscale</span>(100%);</span><br><span class="line">    <span class="attribute">-webkit-filter</span>: <span class="built_in">grayscale</span>(100%);</span><br><span class="line">    <span class="attribute">-moz-filter</span>: <span class="built_in">grayscale</span>(100%);</span><br><span class="line">    <span class="attribute">-ms-filter</span>: <span class="built_in">grayscale</span>(100%);</span><br><span class="line">    <span class="attribute">-o-filter</span>: <span class="built_in">grayscale</span>(100%);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="展示效果对比"><a href="#展示效果对比" class="headerlink" title="展示效果对比"></a>展示效果对比</h3><h4 id="正常页面"><a href="#正常页面" class="headerlink" title="正常页面"></a>正常页面</h4><p><img src="https://user-gold-cdn.xitu.io/2019/12/13/16efde6d85eec500?w=3358&amp;h=1864&amp;f=png&amp;s=178294" alt></p><h4 id="灰色化后页面"><a href="#灰色化后页面" class="headerlink" title="灰色化后页面"></a>灰色化后页面</h4><p><img src="https://user-gold-cdn.xitu.io/2019/12/13/16efde724f1efe64?w=3358&amp;h=1862&amp;f=png&amp;s=167963" alt></p><h3 id="图片"><a href="#图片" class="headerlink" title="图片"></a>图片</h3><p>也可以单独给图片设置灰色效果</p><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">img</span> &#123;</span><br><span class="line">    <span class="attribute">filter</span>: <span class="built_in">grayscale</span>(100%);</span><br><span class="line">    <span class="attribute">-webkit-filter</span>: <span class="built_in">grayscale</span>(100%);</span><br><span class="line">    <span class="attribute">-moz-filter</span>: <span class="built_in">grayscale</span>(100%);</span><br><span class="line">    <span class="attribute">-ms-filter</span>: <span class="built_in">grayscale</span>(100%);</span><br><span class="line">    <span class="attribute">-o-filter</span>: <span class="built_in">grayscale</span>(100%);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h1 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h1><p>其他效果大家也可以尝试下，会有意想不到的效果。。。。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> CSS </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> CSS3 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Xcode 报错解决记录</title>
       <link href="/2019/11/12/knowledge/reactNative/react_native_1/"/>
       <url>/2019/11/12/knowledge/reactNative/react_native_1/</url>
