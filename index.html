@@ -249,9 +249,143 @@
         
           
         
+          
+        
       
     
     
+      
+        
+          <div class="post-wrapper">
+            <article class="post reveal ">
+  
+
+
+  <section class="meta">
+    
+    
+    <div class="meta" id="header-meta">
+      
+        
+  <h2 class="title">
+    <a href="/2020/03/26/knowledge/npm/npmPriority/">
+      npm config 优先级
+    </a>
+  </h2>
+  
+
+
+      
+      <div class="new-meta-box">
+        
+          
+        
+          
+            
+  <div class="new-meta-item author">
+    <a href="https://lokya.github.io" rel="nofollow">
+      
+        <i class="fas fa-user" aria-hidden="true"></i>
+      
+      <p>Lokya</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class="notlink">
+    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+    <p>2020-03-26</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  
+  <div class="new-meta-item category">
+    <a href="/categories/npm/" rel="nofollow">
+      <i class="fas fa-folder-open" aria-hidden="true"></i>
+      <p>npm</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            
+
+          
+        
+          
+            
+
+          
+        
+      </div>
+      
+        <hr>
+      
+    </div>
+  </section>
+
+
+  <section class="article typo fold-all">
+    <div class="article-entry" itemprop="articleBody">
+       
+        <h1 id="NPM-config-优先级"><a href="#NPM-config-优先级" class="headerlink" title="NPM config 优先级"></a>NPM config 优先级</h1><p><code>npm</code> 在读取配置的时候会按照优先级进行读取，然后以高优先级的配置进行处理.</p>
+<h2 id="优先级"><a href="#优先级" class="headerlink" title="优先级"></a>优先级</h2><p><code>npm</code> 的优先级如下，优先级从高到低</p>
+<p>1、命令行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm config <span class="built_in">set</span> registry http://registry.npmjs.org</span><br></pre></td></tr></table></figure>
+<p>2、环境变量</p>
+<p>以 <code>npm_config_</code> 为前缀的环境变量会被识别为 <code>npm</code> 的配置属性。</p>
+<p>npm_config_proxy=<a href="http://xxxx.com" target="_blank" rel="noopener">http://xxxx.com</a></p>
+<p>3、工程的 <code>.npmrc</code> 文件</p>
+<p>存在于开发工程根目录下的 <code>.npmrc</code> 配置文件</p>
+<p>4、用户 <code>.npmrc</code> 文件</p>
+<p>存在于用户根目录下的 <code>.npmrc</code> 文件。</p>
+<p>5、全局 <code>.npmrc</code> 文件</p>
+<p>存在于 <code>node</code> 全局的 <code>.npmrc</code> 文件。</p>
+<p>6、<code>npm</code> 内置的 <code>.npmrc</code> 文件</p>
+<p>存在于 <code>npm</code> 包的内置 <code>.npmrc</code> 文件<code>/path/to/npm/.npmrc</code>。</p>
+<p>7、<code>npm</code> 的默认配置</p>
+<p><code>npm</code> <code>本身有默认配置。对于以上情况下都没有设置的配置，npm</code> 会使用默认配置</p>
+
+      
+      <!-- 
+        <div class="readmore">
+          <a href="/2020/03/26/knowledge/npm/npmPriority/" class="flat-box">
+            <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
+            阅读全文
+          </a>
+        </div>
+       -->
+    </div>
+    
+      <div class="readmore">
+        <a href="/2020/03/26/knowledge/npm/npmPriority/" class="flat-box">
+          <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
+          阅读全文
+        </a>
+      </div>
+    
+    
+      <div class="full-width auto-padding tags">
+        
+          <a href="/tags/NPM/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>NPM</a>
+        
+      </div>
+    
+  </section>
+</article>
+
+          </div>
+        
       
         
           <div class="post-wrapper">
@@ -1693,130 +1827,6 @@
           </div>
         
       
-        
-          <div class="post-wrapper">
-            <article class="post reveal ">
-  
-
-
-  <section class="meta">
-    
-    
-    <div class="meta" id="header-meta">
-      
-        
-  <h2 class="title">
-    <a href="/2019/06/12/knowledge/es6/lesson_2/">
-      ES6-变量的解构
-    </a>
-  </h2>
-  
-
-
-      
-      <div class="new-meta-box">
-        
-          
-        
-          
-            
-  <div class="new-meta-item author">
-    <a href="https://lokya.github.io" rel="nofollow">
-      
-        <i class="fas fa-user" aria-hidden="true"></i>
-      
-      <p>Lokya</p>
-    </a>
-  </div>
-
-
-          
-        
-          
-            <div class="new-meta-item date">
-  <a class="notlink">
-    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-    <p>2019-06-12</p>
-  </a>
-</div>
-
-          
-        
-          
-            
-  
-  <div class="new-meta-item category">
-    <a href="/categories/javascript/" rel="nofollow">
-      <i class="fas fa-folder-open" aria-hidden="true"></i>
-      <p>javascript</p>
-    </a>
-  </div>
-
-
-          
-        
-          
-            
-
-          
-        
-          
-            
-
-          
-        
-      </div>
-      
-        <hr>
-      
-    </div>
-  </section>
-
-
-  <section class="article typo fold-all">
-    <div class="article-entry" itemprop="articleBody">
-       
-        <h2 id="1-数组"><a href="#1-数组" class="headerlink" title="(1) 数组"></a>(1) 数组</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> [a, b, c] = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</span><br><span class="line"><span class="comment">// 报错</span></span><br><span class="line"><span class="keyword">let</span> [foo] = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">let</span> [foo] = <span class="literal">false</span>;</span><br><span class="line"><span class="keyword">let</span> [foo] = <span class="literal">NaN</span>;</span><br><span class="line"><span class="keyword">let</span> [foo] = <span class="literal">undefined</span>;</span><br><span class="line"><span class="keyword">let</span> [foo] = <span class="literal">null</span>;</span><br><span class="line"><span class="keyword">let</span> [foo] = &#123;&#125;;</span><br></pre></td></tr></table></figure>
-<h2 id="2-对象"><a href="#2-对象" class="headerlink" title="(2) 对象"></a>(2) 对象</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> &#123; foo, bar &#125; = &#123; <span class="attr">foo</span>: <span class="string">"aaa"</span>, <span class="attr">bar</span>: <span class="string">"bbb"</span> &#125;;</span><br></pre></td></tr></table></figure>
-<p>区分模式还是变量<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123;</span><br><span class="line">  p: [</span><br><span class="line">    <span class="string">'Hello'</span>,</span><br><span class="line">    &#123; <span class="attr">y</span>: <span class="string">'World'</span> &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> &#123; <span class="attr">p</span>: [x, &#123; y &#125;] &#125; = obj;</span><br><span class="line">x <span class="comment">// "Hello"</span></span><br><span class="line">y <span class="comment">// "World"</span></span><br></pre></td></tr></table></figure></p>
-<p>注意，这时p是模式，不是变量，因此不会被赋值<br>注意: 默认值生效的条件是，对象的属性值严格等于undefined。</p>
-<h2 id="3-字符串"><a href="#3-字符串" class="headerlink" title="(3)字符串"></a>(3)字符串</h2><p>看做数组<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> [a, b, c, d, e] = <span class="string">'hello'</span>;</span><br><span class="line">a <span class="comment">// "h"</span></span><br><span class="line">b <span class="comment">// "e"</span></span><br><span class="line">c <span class="comment">// "l"</span></span><br><span class="line">d <span class="comment">// "l"</span></span><br><span class="line">e <span class="comment">// "o"</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="4-数值的布尔值"><a href="#4-数值的布尔值" class="headerlink" title="(4)数值的布尔值"></a>(4)数值的布尔值</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> &#123;<span class="attr">toString</span>: s&#125; = <span class="number">123</span>;</span><br><span class="line">s === <span class="built_in">Number</span>.prototype.toString <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
-<p>解构赋值的规则是，只要等号右边的值不是对象或数组，就先将其转为对象。由于undefined和null无法转为对象，所以对它们进行解构赋值，都会报错</p>
-<h2 id="5-例子"><a href="#5-例子" class="headerlink" title="(5)例子"></a>(5)例子</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> x = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">let</span> y = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">[x, y] = [y, x];</span><br></pre></td></tr></table></figure>
-      
-      <!-- 
-        <div class="readmore">
-          <a href="/2019/06/12/knowledge/es6/lesson_2/" class="flat-box">
-            <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
-            阅读全文
-          </a>
-        </div>
-       -->
-    </div>
-    
-      <div class="readmore">
-        <a href="/2019/06/12/knowledge/es6/lesson_2/" class="flat-box">
-          <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
-          阅读全文
-        </a>
-      </div>
-    
-    
-      <div class="full-width auto-padding tags">
-        
-          <a href="/tags/javascript/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>javascript</a>
-        
-          <a href="/tags/ES6/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>ES6</a>
-        
-      </div>
-    
-  </section>
-</article>
-
-          </div>
-        
-      
     
   </section>
   
@@ -1965,6 +1975,8 @@
         
           <li><a class="flat-box" title="/categories/node/" href="/categories/node/"><div class="name">node</div><div class="badge">(1)</div></a></li>
         
+          <li><a class="flat-box" title="/categories/npm/" href="/categories/npm/"><div class="name">npm</div><div class="badge">(1)</div></a></li>
+        
           <li><a class="flat-box" title="/categories/react-native/" href="/categories/react-native/"><div class="name">react-native</div><div class="badge">(1)</div></a></li>
         
           <li><a class="flat-box" title="/categories/拍照摄影/" href="/categories/拍照摄影/"><div class="name">拍照摄影</div><div class="badge">(1)</div></a></li>
@@ -1996,7 +2008,7 @@
 </header>
 
     <div class="content pure">
-      <a href="/tags/CSS3/" style="font-size: 14px; color: #999">CSS3</a> <a href="/tags/ES6/" style="font-size: 19px; color: #777">ES6</a> <a href="/tags/Git/" style="font-size: 24px; color: #555">Git</a> <a href="/tags/javascript/" style="font-size: 19px; color: #777">javascript</a> <a href="/tags/linux/" style="font-size: 14px; color: #999">linux</a> <a href="/tags/node/" style="font-size: 14px; color: #999">node</a> <a href="/tags/note/" style="font-size: 19px; color: #777">note</a> <a href="/tags/react-native/" style="font-size: 14px; color: #999">react-native</a> <a href="/tags/拍照摄影/" style="font-size: 14px; color: #999">拍照摄影</a> <a href="/tags/杂记/" style="font-size: 19px; color: #777">杂记</a> <a href="/tags/版本控制/" style="font-size: 14px; color: #999">版本控制</a>
+      <a href="/tags/CSS3/" style="font-size: 14px; color: #999">CSS3</a> <a href="/tags/ES6/" style="font-size: 19px; color: #777">ES6</a> <a href="/tags/Git/" style="font-size: 24px; color: #555">Git</a> <a href="/tags/NPM/" style="font-size: 14px; color: #999">NPM</a> <a href="/tags/javascript/" style="font-size: 19px; color: #777">javascript</a> <a href="/tags/linux/" style="font-size: 14px; color: #999">linux</a> <a href="/tags/node/" style="font-size: 14px; color: #999">node</a> <a href="/tags/note/" style="font-size: 19px; color: #777">note</a> <a href="/tags/react-native/" style="font-size: 14px; color: #999">react-native</a> <a href="/tags/拍照摄影/" style="font-size: 14px; color: #999">拍照摄影</a> <a href="/tags/杂记/" style="font-size: 19px; color: #777">杂记</a> <a href="/tags/版本控制/" style="font-size: 14px; color: #999">版本控制</a>
     </div>
   </section>
 

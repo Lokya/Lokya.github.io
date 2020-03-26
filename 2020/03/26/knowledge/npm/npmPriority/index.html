@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   
-  <title>Tag: ES6 | Lokya</title>
+  <title>npm config 优先级 | Lokya</title>
   
   
   <meta name="description" content="lokya lokya blog">
@@ -48,7 +48,7 @@
   
   
   <div class="cover-wrapper">
-    <cover class="cover  half">
+    <cover class="cover post half">
       
         
   <h1 class="title">
@@ -213,27 +213,12 @@
 
   <div class="l_body">
     <div class='body-wrapper'>
-      
-<div class="l_main">
+      <div class="l_main">
   
-    
-      
-  <section class="post-list">
-    
-      
-        
-          
-        
-          
-        
-      
-    
-    
-      
-        
-          <div class="post-wrapper">
-            <article class="post reveal ">
+
   
+    <article id="post" class="post white-box article-type-post" itemscope itemprop="blogPost">
+      
 
 
   <section class="meta">
@@ -242,11 +227,13 @@
     <div class="meta" id="header-meta">
       
         
-  <h2 class="title">
-    <a href="/2019/06/12/knowledge/es6/lesson_2/">
-      ES6-变量的解构
-    </a>
-  </h2>
+  
+    <h1 class="title">
+      <a href="/2020/03/26/knowledge/npm/npmPriority/">
+        npm config 优先级
+      </a>
+    </h1>
+    
   
 
 
@@ -273,7 +260,7 @@
             <div class="new-meta-item date">
   <a class="notlink">
     <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-    <p>2019-06-12</p>
+    <p>2020-03-26</p>
   </a>
 </div>
 
@@ -283,9 +270,9 @@
             
   
   <div class="new-meta-item category">
-    <a href="/categories/javascript/" rel="nofollow">
+    <a href="/categories/npm/" rel="nofollow">
       <i class="fas fa-folder-open" aria-hidden="true"></i>
-      <p>javascript</p>
+      <p>npm</p>
     </a>
   </div>
 
@@ -294,6 +281,19 @@
         
           
             
+  
+    <div class="new-meta-item browse busuanzi">
+      <a class="notlink">
+        <i class="fas fa-eye" aria-hidden="true"></i>
+        <p>
+          <span id="busuanzi_value_page_pv">
+            <i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i>
+          </span>
+        </p>
+      </a>
+    </div>
+  
+
 
           
         
@@ -310,200 +310,117 @@
   </section>
 
 
-  <section class="article typo fold-all">
-    <div class="article-entry" itemprop="articleBody">
-       
-        <h2 id="1-数组"><a href="#1-数组" class="headerlink" title="(1) 数组"></a>(1) 数组</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> [a, b, c] = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</span><br><span class="line"><span class="comment">// 报错</span></span><br><span class="line"><span class="keyword">let</span> [foo] = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">let</span> [foo] = <span class="literal">false</span>;</span><br><span class="line"><span class="keyword">let</span> [foo] = <span class="literal">NaN</span>;</span><br><span class="line"><span class="keyword">let</span> [foo] = <span class="literal">undefined</span>;</span><br><span class="line"><span class="keyword">let</span> [foo] = <span class="literal">null</span>;</span><br><span class="line"><span class="keyword">let</span> [foo] = &#123;&#125;;</span><br></pre></td></tr></table></figure>
-<h2 id="2-对象"><a href="#2-对象" class="headerlink" title="(2) 对象"></a>(2) 对象</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> &#123; foo, bar &#125; = &#123; <span class="attr">foo</span>: <span class="string">"aaa"</span>, <span class="attr">bar</span>: <span class="string">"bbb"</span> &#125;;</span><br></pre></td></tr></table></figure>
-<p>区分模式还是变量<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123;</span><br><span class="line">  p: [</span><br><span class="line">    <span class="string">'Hello'</span>,</span><br><span class="line">    &#123; <span class="attr">y</span>: <span class="string">'World'</span> &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> &#123; <span class="attr">p</span>: [x, &#123; y &#125;] &#125; = obj;</span><br><span class="line">x <span class="comment">// "Hello"</span></span><br><span class="line">y <span class="comment">// "World"</span></span><br></pre></td></tr></table></figure></p>
-<p>注意，这时p是模式，不是变量，因此不会被赋值<br>注意: 默认值生效的条件是，对象的属性值严格等于undefined。</p>
-<h2 id="3-字符串"><a href="#3-字符串" class="headerlink" title="(3)字符串"></a>(3)字符串</h2><p>看做数组<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> [a, b, c, d, e] = <span class="string">'hello'</span>;</span><br><span class="line">a <span class="comment">// "h"</span></span><br><span class="line">b <span class="comment">// "e"</span></span><br><span class="line">c <span class="comment">// "l"</span></span><br><span class="line">d <span class="comment">// "l"</span></span><br><span class="line">e <span class="comment">// "o"</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="4-数值的布尔值"><a href="#4-数值的布尔值" class="headerlink" title="(4)数值的布尔值"></a>(4)数值的布尔值</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> &#123;<span class="attr">toString</span>: s&#125; = <span class="number">123</span>;</span><br><span class="line">s === <span class="built_in">Number</span>.prototype.toString <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
-<p>解构赋值的规则是，只要等号右边的值不是对象或数组，就先将其转为对象。由于undefined和null无法转为对象，所以对它们进行解构赋值，都会报错</p>
-<h2 id="5-例子"><a href="#5-例子" class="headerlink" title="(5)例子"></a>(5)例子</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> x = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">let</span> y = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">[x, y] = [y, x];</span><br></pre></td></tr></table></figure>
-      
-      <!-- 
-        <div class="readmore">
-          <a href="/2019/06/12/knowledge/es6/lesson_2/" class="flat-box">
-            <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
-            阅读全文
-          </a>
+      <section class="article typo">
+        <div class="article-entry" itemprop="articleBody">
+          <h1 id="NPM-config-优先级"><a href="#NPM-config-优先级" class="headerlink" title="NPM config 优先级"></a>NPM config 优先级</h1><p><code>npm</code> 在读取配置的时候会按照优先级进行读取，然后以高优先级的配置进行处理.</p>
+<h2 id="优先级"><a href="#优先级" class="headerlink" title="优先级"></a>优先级</h2><p><code>npm</code> 的优先级如下，优先级从高到低</p>
+<p>1、命令行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm config <span class="built_in">set</span> registry http://registry.npmjs.org</span><br></pre></td></tr></table></figure>
+<p>2、环境变量</p>
+<p>以 <code>npm_config_</code> 为前缀的环境变量会被识别为 <code>npm</code> 的配置属性。</p>
+<p>npm_config_proxy=<a href="http://xxxx.com" target="_blank" rel="noopener">http://xxxx.com</a></p>
+<p>3、工程的 <code>.npmrc</code> 文件</p>
+<p>存在于开发工程根目录下的 <code>.npmrc</code> 配置文件</p>
+<p>4、用户 <code>.npmrc</code> 文件</p>
+<p>存在于用户根目录下的 <code>.npmrc</code> 文件。</p>
+<p>5、全局 <code>.npmrc</code> 文件</p>
+<p>存在于 <code>node</code> 全局的 <code>.npmrc</code> 文件。</p>
+<p>6、<code>npm</code> 内置的 <code>.npmrc</code> 文件</p>
+<p>存在于 <code>npm</code> 包的内置 <code>.npmrc</code> 文件<code>/path/to/npm/.npmrc</code>。</p>
+<p>7、<code>npm</code> 的默认配置</p>
+<p><code>npm</code> <code>本身有默认配置。对于以上情况下都没有设置的配置，npm</code> 会使用默认配置</p>
+
         </div>
-       -->
-    </div>
-    
-      <div class="readmore">
-        <a href="/2019/06/12/knowledge/es6/lesson_2/" class="flat-box">
-          <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
-          阅读全文
-        </a>
-      </div>
-    
-    
-      <div class="full-width auto-padding tags">
-        
-          <a href="/tags/javascript/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>javascript</a>
-        
-          <a href="/tags/ES6/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>ES6</a>
-        
-      </div>
-    
-  </section>
-</article>
-
-          </div>
-        
-      
-        
-          <div class="post-wrapper">
-            <article class="post reveal ">
-  
-
-
-  <section class="meta">
-    
-    
-    <div class="meta" id="header-meta">
-      
-        
-  <h2 class="title">
-    <a href="/2019/05/06/knowledge/es6/lesson_1/">
-      ES6-变量
-    </a>
-  </h2>
-  
-
-
-      
-      <div class="new-meta-box">
         
           
-        
-          
-            
-  <div class="new-meta-item author">
-    <a href="https://lokya.github.io" rel="nofollow">
-      
-        <i class="fas fa-user" aria-hidden="true"></i>
-      
-      <p>Lokya</p>
-    </a>
-  </div>
 
 
-          
+  <section class="meta" id="footer-meta">
+    <hr>
+    <div class="new-meta-box">
+      
         
-          
-            <div class="new-meta-item date">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-03-26T10:38:10+08:00">
   <a class="notlink">
-    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-    <p>2019-05-06</p>
+    <i class="fas fa-clock" aria-hidden="true"></i>
+    <p>最后更新于 2020年3月26日</p>
   </a>
 </div>
 
-          
         
-          
-            
-  
-  <div class="new-meta-item category">
-    <a href="/categories/javascript/" rel="nofollow">
-      <i class="fas fa-folder-open" aria-hidden="true"></i>
-      <p>javascript</p>
-    </a>
-  </div>
-
-
-          
-        
-          
-            
-
-          
-        
-          
-            
-
-          
-        
-      </div>
       
-        <hr>
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/NPM/" rel="nofollow"><i class="fas fa-hashtag" aria-hidden="true"></i>&nbsp;<p>NPM</p></a></div>
+
+
+        
+      
+        
+          
+
+        
       
     </div>
   </section>
 
 
-  <section class="article typo fold-all">
-    <div class="article-entry" itemprop="articleBody">
-       
-        <h2 id="let-和-const"><a href="#let-和-const" class="headerlink" title="let 和 const"></a>let 和 const</h2><p><code>let</code>声明变量，类似于<code>var</code>，但是<code>let</code>有作用域的概念。<br><code>const</code> 声明常量，一旦声明后，不可改变。<code>const</code> 声明后要立马初始化。</p>
-<p><strong>作用域</strong></p>
-<p>作用域顾名思义就是只有在某个区域内起作用。<code>let</code> 就只能在其作用域中起作用。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="keyword">let</span> a = <span class="number">10</span>;</span><br><span class="line">  <span class="keyword">var</span> b = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">a <span class="comment">// ReferenceError: a is not defined.</span></span><br><span class="line">b <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
-<p><strong>变量提升</strong></p>
-<p><code>var</code> 命令会发生“变量提升”现象，即变量可以在声明之前使用，值为undefined。</p>
-<p><code>let</code> 定义的变量如果在声明之前使用会报错。</p>
-<p><strong>暂时性死区</strong></p>
-<p>如果区块中存在<code>let</code>和<code>const</code>命令，这个区块对这些命令声明的变量，从一开始就形成了封闭作用域（暂时性死区）。凡是在声明之前就使用这些变量，就会报错。</p>
-<p><strong>重复声明</strong></p>
-<p><code>let</code>不允许在相同作用域内，重复声明同一个变量。</p>
-<p><strong>const本质</strong></p>
-<p><code>const</code>实际上保证的，并不是变量的值不得改动，而是变量指向的那个内存地址所保存的数据不得改动。</p>
-<p>对于简单类型的数据（数值、字符串、布尔值），值就保存在变量指向的那个内存地址，因此等同于常量。但对于复合类型的数据（主要是对象和数组），变量指向的内存地址，保存的只是一个指向实际数据的指针，<code>const</code>只能保证这个指针是固定的（即总是指向另一个固定的地址），至于它指向的数据结构是不是可变的，就完全不能控制了。</p>
-<h2 id="global对象"><a href="#global对象" class="headerlink" title="global对象"></a>global对象</h2><p>顶层对象，在浏览器环境指的是<code>window</code>对象，在 <code>Node</code> 指的是<code>global</code>对象。</p>
-<p>ES5 之中，顶层对象的属性与全局变量是等价的。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.a = <span class="number">1</span>;</span><br><span class="line">a <span class="comment">// 1</span></span><br><span class="line"></span><br><span class="line">a = <span class="number">2</span>;</span><br><span class="line"><span class="built_in">window</span>.a <span class="comment">// 2</span></span><br></pre></td></tr></table></figure></p>
-<ul>
-<li>为了保持兼容性，<code>var</code>命令和<code>function</code>命令声明的全局变量，依旧是顶层对象的属性；</li>
-<li><code>let</code>命令、<code>const</code>命令、class命令声明的全局变量，不属于顶层对象的属性</li>
-</ul>
-
-      
-      <!-- 
-        <div class="readmore">
-          <a href="/2019/05/06/knowledge/es6/lesson_1/" class="flat-box">
-            <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
-            阅读全文
-          </a>
-        </div>
-       -->
-    </div>
-    
-      <div class="readmore">
-        <a href="/2019/05/06/knowledge/es6/lesson_1/" class="flat-box">
-          <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
-          阅读全文
-        </a>
-      </div>
-    
-    
-      <div class="full-width auto-padding tags">
         
-          <a href="/tags/javascript/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>javascript</a>
         
-          <a href="/tags/ES6/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>ES6</a>
+            <div class="prev-next">
+                
+                
+                    <section class="next">
+                        <span class="art-item-right" aria-hidden="true">
+                            <h6>下一页&nbsp;<i class="fas fa-chevron-right" aria-hidden="true"></i></h6>
+                            <h4>
+                                <a href="/2019/12/13/knowledge/css/css1/" rel="prev" title="filter - 网页灰色效果">
+                                    
+                                        filter - 网页灰色效果
+                                    
+                                </a>
+                            </h4>
+                            
+                                
+                                <h6 class="tags">
+                                    <a class="tag" href="/tags/CSS3/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>CSS3</a>
+                                </h6>
+                            
+                        </span>
+                    </section>
+                
+            </div>
         
-      </div>
-    
-  </section>
-</article>
-
-          </div>
-        
-      
-    
-  </section>
+      </section>
+    </article>
   
-    
-    <!-- 根据主题中的设置决定是否在archive中针对摘要部分的MathJax公式加载mathjax.js文件 -->
-    
-    
+
+  
+    <!-- 显示推荐文章和评论 -->
+
+
 
   
 
 
-    
   
+
+
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+
+
+  <script>
+    window.subData = {
+      title: 'npm config 优先级',
+      tools: true
+    }
+  </script>
+
+
 </div>
 <aside class="l_side">
   
@@ -551,6 +468,20 @@
           
           
             
+  <section class="widget toc-wrapper">
+    
+<header class="pure">
+  <div><i class="fas fa-list fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;本文目录</div>
+  
+    <div class="wrapper"><a class="s-toc rightBtn" rel="external nofollow noopener noreferrer" href="javascript:void(0)"><i class="fas fa-thumbtack fa-fw"></i></a></div>
+  
+</header>
+
+    <div class="content pure">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#NPM-config-优先级"><span class="toc-text">NPM config 优先级</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#优先级"><span class="toc-text">优先级</span></a></li></ol></li></ol>
+    </div>
+  </section>
+
 
           
         

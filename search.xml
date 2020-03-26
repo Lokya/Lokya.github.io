@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>npm config 优先级</title>
+      <link href="/2020/03/26/knowledge/npm/npmPriority/"/>
+      <url>/2020/03/26/knowledge/npm/npmPriority/</url>
+      
+        <content type="html"><![CDATA[<h1 id="NPM-config-优先级"><a href="#NPM-config-优先级" class="headerlink" title="NPM config 优先级"></a>NPM config 优先级</h1><p><code>npm</code> 在读取配置的时候会按照优先级进行读取，然后以高优先级的配置进行处理.</p><h2 id="优先级"><a href="#优先级" class="headerlink" title="优先级"></a>优先级</h2><p><code>npm</code> 的优先级如下，优先级从高到低</p><p>1、命令行</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm config <span class="built_in">set</span> registry http://registry.npmjs.org</span><br></pre></td></tr></table></figure><p>2、环境变量</p><p>以 <code>npm_config_</code> 为前缀的环境变量会被识别为 <code>npm</code> 的配置属性。</p><p>npm_config_proxy=<a href="http://xxxx.com" target="_blank" rel="noopener">http://xxxx.com</a></p><p>3、工程的 <code>.npmrc</code> 文件</p><p>存在于开发工程根目录下的 <code>.npmrc</code> 配置文件</p><p>4、用户 <code>.npmrc</code> 文件</p><p>存在于用户根目录下的 <code>.npmrc</code> 文件。</p><p>5、全局 <code>.npmrc</code> 文件</p><p>存在于 <code>node</code> 全局的 <code>.npmrc</code> 文件。</p><p>6、<code>npm</code> 内置的 <code>.npmrc</code> 文件</p><p>存在于 <code>npm</code> 包的内置 <code>.npmrc</code> 文件<code>/path/to/npm/.npmrc</code>。</p><p>7、<code>npm</code> 的默认配置</p><p><code>npm</code> <code>本身有默认配置。对于以上情况下都没有设置的配置，npm</code> 会使用默认配置</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> npm </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> NPM </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>filter - 网页灰色效果</title>
       <link href="/2019/12/13/knowledge/css/css1/"/>
       <url>/2019/12/13/knowledge/css/css1/</url>
