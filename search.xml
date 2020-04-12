@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>package.json resolutions 深入浅出</title>
+      <link href="/2020/04/10/knowledge/yarn/resolutions/"/>
+      <url>/2020/04/10/knowledge/yarn/resolutions/</url>
+      
+        <content type="html"><![CDATA[<h1 id="package-json-resolutions-深入浅出"><a href="#package-json-resolutions-深入浅出" class="headerlink" title="package.json resolutions 深入浅出"></a>package.json resolutions 深入浅出</h1><h2 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h2><p><code>yarn install --flat</code> 命令将会自动在 <code>package.json</code> 文件里加入 <code>resolutions</code> 字段或者直接在 <code>package.json</code> 中增加字段配置</p><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"resolutions"</span>: &#123;</span><br><span class="line">    <span class="attr">"package-1"</span>: <span class="string">"0.0.1"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p><code>resolutions</code> 字段允许再依赖关系中定义自定义软件包版本。</p><h2 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h2><ul><li><p>项目中可能依赖于不经常更新的软件包，但这个依赖包依赖于另一个进行了重要升级的软件包。在这种情况下，如果直接依赖项指定的版本范围不包含新的子依赖项版本，只能等中间包的作者进行优化修改。</p></li><li><p>项目的子依赖项获得了重要的安全更新，并不希望等待直接依赖项发布最低版本更新。</p></li><li><p>依赖一个无人维护，但工作包和其中一个依赖项得到升级。</p></li><li><p>依赖性定义了一个广泛的版本范围，并且您的子依赖关系刚刚得到了一个有问题的更新，因此您希望将其固定到较早的版本。</p></li></ul><h2 id="官方示例"><a href="#官方示例" class="headerlink" title="官方示例"></a>官方示例</h2><p><strong>package.json</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&quot;dependencies&quot;: &#123;</span><br><span class="line">    &quot;package-a&quot;: &quot;1.0.0&quot;,</span><br><span class="line">    &quot;package-b&quot;: &quot;1.0.0&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">&quot;resolutions&quot;: &#123;</span><br><span class="line">&quot;**/package-d1&quot;: &quot;2.0.0&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p><strong>依赖图</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">package-a@1.0.0</span><br><span class="line"> |_ package-d1@1.0.0</span><br><span class="line">     |_ package-d2@1.0.0</span><br><span class="line"></span><br><span class="line">package-a@2.0.0</span><br><span class="line"> |_ package-d1@2.0.0</span><br><span class="line">     |_ package-d2@1.0.0</span><br><span class="line"></span><br><span class="line">package-b@1.0.0</span><br><span class="line"> |_ package-d1@2.0.0</span><br><span class="line">     |_ package-d2@1.0.0</span><br><span class="line"></span><br><span class="line">package-c@1.0.0</span><br><span class="line"> |_ package-a@2.0.0</span><br><span class="line">     |_ package-d1@2.0.0</span><br><span class="line">         |_ package-d2@1.0.0</span><br></pre></td></tr></table></figure><h2 id="resolutions-和其他依赖关系"><a href="#resolutions-和其他依赖关系" class="headerlink" title="resolutions 和其他依赖关系"></a>resolutions 和其他依赖关系</h2><p><code>devDependencies</code> <code>optionalDependencies</code> 和<code>依赖关系字段</code>总是优先于 <code>resolutions</code> :如果用户定义显式的依赖,这意味着他希望这个版本,即使是指定不明确的规范。</p><h2 id="项目和项目依赖的包同时具有-resolutions-字段"><a href="#项目和项目依赖的包同时具有-resolutions-字段" class="headerlink" title="项目和项目依赖的包同时具有 resolutions 字段"></a>项目和项目依赖的包同时具有 resolutions 字段</h2><p>在我们的项目中，我们同时维护项目和项目中依赖的包，而且在项目和我们所依赖的包中，同时对同一个第三方包进行 <code>resolutions</code> 版本规范，会是什么样子呢？</p><p>首先，我在子包中，将 <code>choerodon-ui</code> 的版本规范为<code>0.8.58</code></p><p><img src="/images/knowledge/resolutions1.png" alt="resolutions" title="resolutions1"></p><p>然后它的 <code>lock</code> 版本为：</p><p><img src="/images/knowledge/resolutions2.png" alt="resolutions" title="resolutions2"></p><p>发布 <code>npm</code> 包后，将这个 <code>srm-front-boot</code> 依赖进主项目</p><p><img src="/images/knowledge/resolutions3.png" alt="resolutions" title="resolutions3"></p><p>没有加 <code>resolutions</code> <code>之前，lock</code> 文件的版本是这样的：</p><p><img src="/images/knowledge/resolutions4.png" alt="resolutions" title="resolutions4"></p><p>然后在 <code>devDependencies</code> 中增加 <code>choerodon-ui</code> 的依赖，发现会依赖成两个版本</p><p><img src="/images/knowledge/resolutions5.png" alt="resolutions" title="resolutions5"><br><img src="/images/knowledge/resolutions6.png" alt="resolutions" title="resolutions6"></p><p>总结： </p><p>由上面的情况我们可以得出，子模块中的 <code>resolutions</code> 自会限制子模块中某个依赖的版本，如果在父工程项目中也同时需要对某个包进行版本规范，需要在父工程中也添加 <code>resolutions</code> 对版本进行规范，父项目和子依赖包中的 <code>resolutions</code> 字段不会进行冲突。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Yarn </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Yarn </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>npm config 优先级</title>
       <link href="/2020/03/26/knowledge/npm/npmPriority/"/>
       <url>/2020/03/26/knowledge/npm/npmPriority/</url>

@@ -251,9 +251,157 @@
         
           
         
+          
+        
       
     
     
+      
+        
+          <div class="post-wrapper">
+            <article class="post reveal ">
+  
+
+
+  <section class="meta">
+    
+    
+    <div class="meta" id="header-meta">
+      
+        
+  <h2 class="title">
+    <a href="/2020/04/10/knowledge/yarn/resolutions/">
+      package.json resolutions 深入浅出
+    </a>
+  </h2>
+  
+
+
+      
+      <div class="new-meta-box">
+        
+          
+        
+          
+            
+  <div class="new-meta-item author">
+    <a href="https://lokya.github.io" rel="nofollow">
+      
+        <i class="fas fa-user" aria-hidden="true"></i>
+      
+      <p>Lokya</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class="notlink">
+    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+    <p>2020-04-10</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  
+  <div class="new-meta-item category">
+    <a href="/categories/Yarn/" rel="nofollow">
+      <i class="fas fa-folder-open" aria-hidden="true"></i>
+      <p>Yarn</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            
+
+          
+        
+          
+            
+
+          
+        
+      </div>
+      
+        <hr>
+      
+    </div>
+  </section>
+
+
+  <section class="article typo fold-all">
+    <div class="article-entry" itemprop="articleBody">
+       
+        <h1 id="package-json-resolutions-深入浅出"><a href="#package-json-resolutions-深入浅出" class="headerlink" title="package.json resolutions 深入浅出"></a>package.json resolutions 深入浅出</h1><h2 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h2><p><code>yarn install --flat</code> 命令将会自动在 <code>package.json</code> 文件里加入 <code>resolutions</code> 字段或者直接在 <code>package.json</code> 中增加字段配置</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"resolutions"</span>: &#123;</span><br><span class="line">    <span class="attr">"package-1"</span>: <span class="string">"0.0.1"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>resolutions</code> 字段允许再依赖关系中定义自定义软件包版本。</p>
+<h2 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h2><ul>
+<li><p>项目中可能依赖于不经常更新的软件包，但这个依赖包依赖于另一个进行了重要升级的软件包。在这种情况下，如果直接依赖项指定的版本范围不包含新的子依赖项版本，只能等中间包的作者进行优化修改。</p>
+</li>
+<li><p>项目的子依赖项获得了重要的安全更新，并不希望等待直接依赖项发布最低版本更新。</p>
+</li>
+<li><p>依赖一个无人维护，但工作包和其中一个依赖项得到升级。</p>
+</li>
+<li><p>依赖性定义了一个广泛的版本范围，并且您的子依赖关系刚刚得到了一个有问题的更新，因此您希望将其固定到较早的版本。</p>
+</li>
+</ul>
+<h2 id="官方示例"><a href="#官方示例" class="headerlink" title="官方示例"></a>官方示例</h2><p><strong>package.json</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&quot;dependencies&quot;: &#123;</span><br><span class="line">    &quot;package-a&quot;: &quot;1.0.0&quot;,</span><br><span class="line">    &quot;package-b&quot;: &quot;1.0.0&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">&quot;resolutions&quot;: &#123;</span><br><span class="line">&quot;**/package-d1&quot;: &quot;2.0.0&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>依赖图</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">package-a@1.0.0</span><br><span class="line"> |_ package-d1@1.0.0</span><br><span class="line">     |_ package-d2@1.0.0</span><br><span class="line"></span><br><span class="line">package-a@2.0.0</span><br><span class="line"> |_ package-d1@2.0.0</span><br><span class="line">     |_ package-d2@1.0.0</span><br><span class="line"></span><br><span class="line">package-b@1.0.0</span><br><span class="line"> |_ package-d1@2.0.0</span><br><span class="line">     |_ package-d2@1.0.0</span><br><span class="line"></span><br><span class="line">package-c@1.0.0</span><br><span class="line"> |_ package-a@2.0.0</span><br><span class="line">     |_ package-d1@2.0.0</span><br><span class="line">         |_ package-d2@1.0.0</span><br></pre></td></tr></table></figure>
+<h2 id="resolutions-和其他依赖关系"><a href="#resolutions-和其他依赖关系" class="headerlink" title="resolutions 和其他依赖关系"></a>resolutions 和其他依赖关系</h2><p><code>devDependencies</code> <code>optionalDependencies</code> 和<code>依赖关系字段</code>总是优先于 <code>resolutions</code> :如果用户定义显式的依赖,这意味着他希望这个版本,即使是指定不明确的规范。</p>
+<h2 id="项目和项目依赖的包同时具有-resolutions-字段"><a href="#项目和项目依赖的包同时具有-resolutions-字段" class="headerlink" title="项目和项目依赖的包同时具有 resolutions 字段"></a>项目和项目依赖的包同时具有 resolutions 字段</h2><p>在我们的项目中，我们同时维护项目和项目中依赖的包，而且在项目和我们所依赖的包中，同时对同一个第三方包进行 <code>resolutions</code> 版本规范，会是什么样子呢？</p>
+<p>首先，我在子包中，将 <code>choerodon-ui</code> 的版本规范为<code>0.8.58</code></p>
+<p><img src="/images/knowledge/resolutions1.png" alt="resolutions" title="resolutions1"></p>
+<p>然后它的 <code>lock</code> 版本为：</p>
+<p><img src="/images/knowledge/resolutions2.png" alt="resolutions" title="resolutions2"></p>
+<p>发布 <code>npm</code> 包后，将这个 <code>srm-front-boot</code> 依赖进主项目</p>
+<p><img src="/images/knowledge/resolutions3.png" alt="resolutions" title="resolutions3"></p>
+<p>没有加 <code>resolutions</code> <code>之前，lock</code> 文件的版本是这样的：</p>
+<p><img src="/images/knowledge/resolutions4.png" alt="resolutions" title="resolutions4"></p>
+<p>然后在 <code>devDependencies</code> 中增加 <code>choerodon-ui</code> 的依赖，发现会依赖成两个版本</p>
+<p><img src="/images/knowledge/resolutions5.png" alt="resolutions" title="resolutions5"><br><img src="/images/knowledge/resolutions6.png" alt="resolutions" title="resolutions6"></p>
+<p>总结： </p>
+<p>由上面的情况我们可以得出，子模块中的 <code>resolutions</code> 自会限制子模块中某个依赖的版本，如果在父工程项目中也同时需要对某个包进行版本规范，需要在父工程中也添加 <code>resolutions</code> 对版本进行规范，父项目和子依赖包中的 <code>resolutions</code> 字段不会进行冲突。</p>
+
+      
+      <!-- 
+        <div class="readmore">
+          <a href="/2020/04/10/knowledge/yarn/resolutions/" class="flat-box">
+            <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
+            阅读全文
+          </a>
+        </div>
+       -->
+    </div>
+    
+      <div class="readmore">
+        <a href="/2020/04/10/knowledge/yarn/resolutions/" class="flat-box">
+          <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
+          阅读全文
+        </a>
+      </div>
+    
+    
+      <div class="full-width auto-padding tags">
+        
+          <a href="/tags/Yarn/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>Yarn</a>
+        
+      </div>
+    
+  </section>
+</article>
+
+          </div>
+        
       
         
           <div class="post-wrapper">
@@ -1695,138 +1843,6 @@
           </div>
         
       
-        
-          <div class="post-wrapper">
-            <article class="post reveal ">
-  
-
-
-  <section class="meta">
-    
-    
-    <div class="meta" id="header-meta">
-      
-        
-  <h2 class="title">
-    <a href="/2019/06/14/notes/note1/">
-      too many open files
-    </a>
-  </h2>
-  
-
-
-      
-      <div class="new-meta-box">
-        
-          
-        
-          
-            
-  <div class="new-meta-item author">
-    <a href="https://lokya.github.io" rel="nofollow">
-      
-        <i class="fas fa-user" aria-hidden="true"></i>
-      
-      <p>Lokya</p>
-    </a>
-  </div>
-
-
-          
-        
-          
-            <div class="new-meta-item date">
-  <a class="notlink">
-    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-    <p>2019-06-14</p>
-  </a>
-</div>
-
-          
-        
-          
-            
-  
-  <div class="new-meta-item category">
-    <a href="/categories/linux/" rel="nofollow">
-      <i class="fas fa-folder-open" aria-hidden="true"></i>
-      <p>linux</p>
-    </a>
-  </div>
-
-
-          
-        
-          
-            
-
-          
-        
-          
-            
-
-          
-        
-      </div>
-      
-        <hr>
-      
-    </div>
-  </section>
-
-
-  <section class="article typo fold-all">
-    <div class="article-entry" itemprop="articleBody">
-       
-        <h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p>前端Jenkins跑服务时候报错，怎么都跑不起来，我就去服务器手动执行脚本。在<code>build</code>阶段发现服务器报错 <code>too many open files</code>,于是去查找资料找解决方案。</p>
-<p>这个报错是只打来文件过多，超过了系统限制的文件数量以及通讯链接数，这边的<code>files</code>不单是文件的意思，也包括打开的通讯链接(比如socket)，正在监听的端口等，也可以叫做句柄(handle)。这个错误通常也可以叫做句柄数超出系统限制。 </p>
-<h2 id="查看"><a href="#查看" class="headerlink" title="查看"></a>查看</h2><p>可以使用 ulimit -a 或者 ulimit -n 来查看当前系统最大句柄限制数</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">ulimit</span> -a</span><br><span class="line"></span><br><span class="line">core file size          (blocks, -c) 0</span><br><span class="line">data seg size           (kbytes, -d) unlimited</span><br><span class="line">scheduling priority             (-e) 0</span><br><span class="line">file size               (blocks, -f) unlimited</span><br><span class="line">pending signals                 (-i) 127922</span><br><span class="line">max locked memory       (kbytes, -l) 64</span><br><span class="line">max memory size         (kbytes, -m) unlimited</span><br><span class="line">open files                      (-n) 1024</span><br><span class="line">pipe size            (512 bytes, -p) 8</span><br><span class="line">POSIX message queues     (bytes, -q) 819200</span><br><span class="line">real-time priority              (-r) 0</span><br><span class="line">stack size              (kbytes, -s) 8192</span><br><span class="line">cpu time               (seconds, -t) unlimited</span><br><span class="line">max user processes              (-u) 127922</span><br><span class="line">virtual memory          (kbytes, -v) unlimited</span><br><span class="line">file locks                      (-x) unlimited</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">limit</span> -n</span><br><span class="line"></span><br><span class="line">1024</span><br></pre></td></tr></table></figure>
-<p>open files那一行就代表系统目前允许单个进程打开的最大句柄数，这里是1024。 </p>
-<p>同时使用 <code>-n</code> 查看下来也是1024。</p>
-<h2 id="修改"><a href="#修改" class="headerlink" title="修改"></a>修改</h2><h3 id="临时修改"><a href="#临时修改" class="headerlink" title="临时修改"></a>临时修改</h3><p><strong>ulimit -n</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">ulimit</span> -n 65535</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">ulimit</span> -a</span><br><span class="line"></span><br><span class="line">core file size          (blocks, -c) 0</span><br><span class="line">data seg size           (kbytes, -d) unlimited</span><br><span class="line">scheduling priority             (-e) 0</span><br><span class="line">file size               (blocks, -f) unlimited</span><br><span class="line">pending signals                 (-i) 127922</span><br><span class="line">max locked memory       (kbytes, -l) 64</span><br><span class="line">max memory size         (kbytes, -m) unlimited</span><br><span class="line">open files                      (-n) 65535</span><br><span class="line">pipe size            (512 bytes, -p) 8</span><br><span class="line">POSIX message queues     (bytes, -q) 819200</span><br><span class="line">real-time priority              (-r) 0</span><br><span class="line">stack size              (kbytes, -s) 8192</span><br><span class="line">cpu time               (seconds, -t) unlimited</span><br><span class="line">max user processes              (-u) 127922</span><br><span class="line">virtual memory          (kbytes, -v) unlimited</span><br><span class="line">file locks                      (-x) unlimited</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">limit</span> -n</span><br><span class="line"></span><br><span class="line">65535</span><br></pre></td></tr></table></figure>
-<p>但这种设置方法在重启后会<strong>还原为默认值</strong>。</p>
-<p><code>ulimit -n</code>命令非root用户只能设置到4096，想要设置到更大需要sudo权限或者root用户。</p>
-<h3 id="修改conf文件，永久配置"><a href="#修改conf文件，永久配置" class="headerlink" title="修改conf文件，永久配置"></a>修改conf文件，永久配置</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ vim /etc/security/limits.conf  </span><br><span class="line"><span class="comment">#在最后加入  </span></span><br><span class="line">* soft nofile 65535  </span><br><span class="line">* hard nofile 65535</span><br></pre></td></tr></table></figure>
-<p><code>*</code>代表所有用户，可以给特点用户设定句柄最大数值。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ vim /etc/security/limits.conf  </span><br><span class="line"><span class="comment">#在最后加入  </span></span><br><span class="line">jenkins soft nofile 65535  </span><br><span class="line">jenkins hard nofile 65535</span><br></pre></td></tr></table></figure>
-<p>上面就是把jenkins用户最大句柄数改成65535</p>
-<p>之后再查看大小的话可以发现已经修改为 65535 。</p>
-
-      
-      <!-- 
-        <div class="readmore">
-          <a href="/2019/06/14/notes/note1/" class="flat-box">
-            <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
-            阅读全文
-          </a>
-        </div>
-       -->
-    </div>
-    
-      <div class="readmore">
-        <a href="/2019/06/14/notes/note1/" class="flat-box">
-          <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
-          阅读全文
-        </a>
-      </div>
-    
-    
-      <div class="full-width auto-padding tags">
-        
-          <a href="/tags/linux/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>linux</a>
-        
-          <a href="/tags/note/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>note</a>
-        
-      </div>
-    
-  </section>
-</article>
-
-          </div>
-        
-      
     
   </section>
   
@@ -1969,6 +1985,8 @@
         
           <li><a class="flat-box" title="/categories/Git/" href="/categories/Git/"><div class="name">Git</div><div class="badge">(4)</div></a></li>
         
+          <li><a class="flat-box" title="/categories/Yarn/" href="/categories/Yarn/"><div class="name">Yarn</div><div class="badge">(1)</div></a></li>
+        
           <li><a class="flat-box" title="/categories/javascript/" href="/categories/javascript/"><div class="name">javascript</div><div class="badge">(2)</div></a></li>
         
           <li><a class="flat-box" title="/categories/linux/" href="/categories/linux/"><div class="name">linux</div><div class="badge">(1)</div></a></li>
@@ -2008,7 +2026,7 @@
 </header>
 
     <div class="content pure">
-      <a href="/tags/CSS3/" style="font-size: 14px; color: #999">CSS3</a> <a href="/tags/ES6/" style="font-size: 19px; color: #777">ES6</a> <a href="/tags/Git/" style="font-size: 24px; color: #555">Git</a> <a href="/tags/NPM/" style="font-size: 14px; color: #999">NPM</a> <a href="/tags/javascript/" style="font-size: 19px; color: #777">javascript</a> <a href="/tags/linux/" style="font-size: 14px; color: #999">linux</a> <a href="/tags/node/" style="font-size: 14px; color: #999">node</a> <a href="/tags/note/" style="font-size: 19px; color: #777">note</a> <a href="/tags/react-native/" style="font-size: 14px; color: #999">react-native</a> <a href="/tags/拍照摄影/" style="font-size: 14px; color: #999">拍照摄影</a> <a href="/tags/杂记/" style="font-size: 19px; color: #777">杂记</a> <a href="/tags/版本控制/" style="font-size: 14px; color: #999">版本控制</a>
+      <a href="/tags/CSS3/" style="font-size: 14px; color: #999">CSS3</a> <a href="/tags/ES6/" style="font-size: 19px; color: #777">ES6</a> <a href="/tags/Git/" style="font-size: 24px; color: #555">Git</a> <a href="/tags/NPM/" style="font-size: 14px; color: #999">NPM</a> <a href="/tags/Yarn/" style="font-size: 14px; color: #999">Yarn</a> <a href="/tags/javascript/" style="font-size: 19px; color: #777">javascript</a> <a href="/tags/linux/" style="font-size: 14px; color: #999">linux</a> <a href="/tags/node/" style="font-size: 14px; color: #999">node</a> <a href="/tags/note/" style="font-size: 19px; color: #777">note</a> <a href="/tags/react-native/" style="font-size: 14px; color: #999">react-native</a> <a href="/tags/拍照摄影/" style="font-size: 14px; color: #999">拍照摄影</a> <a href="/tags/杂记/" style="font-size: 19px; color: #777">杂记</a> <a href="/tags/版本控制/" style="font-size: 14px; color: #999">版本控制</a>
     </div>
   </section>
 
