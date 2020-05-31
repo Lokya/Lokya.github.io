@@ -253,9 +253,152 @@
         
           
         
+          
+        
       
     
     
+      
+        
+          <div class="post-wrapper">
+            <article class="post reveal ">
+  
+
+
+  <section class="meta">
+    
+    
+    <div class="meta" id="header-meta">
+      
+        
+  <h2 class="title">
+    <a href="/2020/05/31/knowledge/git/submoduleForeach/">
+      git submodule foreach 忽略子模块
+    </a>
+  </h2>
+  
+
+
+      
+      <div class="new-meta-box">
+        
+          
+        
+          
+            
+  <div class="new-meta-item author">
+    <a href="https://lokya.github.io" rel="nofollow">
+      
+        <i class="fas fa-user" aria-hidden="true"></i>
+      
+      <p>Lokya</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class="notlink">
+    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+    <p>2020-05-31</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  
+  <div class="new-meta-item category">
+    <a href="/categories/Git/" rel="nofollow">
+      <i class="fas fa-folder-open" aria-hidden="true"></i>
+      <p>Git</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            
+
+          
+        
+          
+            
+
+          
+        
+      </div>
+      
+        <hr>
+      
+    </div>
+  </section>
+
+
+  <section class="article typo fold-all">
+    <div class="article-entry" itemprop="articleBody">
+       
+        <h1 id="git-submodule-foreach-忽略子模块"><a href="#git-submodule-foreach-忽略子模块" class="headerlink" title="git submodule foreach 忽略子模块"></a>git submodule foreach 忽略子模块</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>我们公司的项目是采用 <code>lerna</code> 进行管理的，主模块下面的每个模块都是由不同的开发团队进行开发的，存储在不同的 <code>git</code> 仓库，在每次大版本进行发布的时候，需要批量对所有模块进行操作，例如历史分支代码 <code>tag</code>保留，删除迭代分支，创建新的分支等。<br>但是项目在不同的迭代周期中会有新的模块临时添加进来，新的模块并没有创建和其他分支一样的迭代周期分支，在发版期间批量处理时，在每个模块下执行一些 <code>git</code> 命令会报错，导致执行中断。</p>
+<h2 id="git-submodule-foreach"><a href="#git-submodule-foreach" class="headerlink" title="git submodule foreach"></a>git submodule foreach</h2><h3 id="git-submodule"><a href="#git-submodule" class="headerlink" title="git submodule"></a>git submodule</h3><p><code>git</code> 子模块的用法，我就不多废话了，好多人都用过了，如果没有用过和了解过的朋友，可以参考官网文档： <a href="https://git-scm.com/book/zh/v2/Git-%E5%B7%A5%E5%85%B7-%E5%AD%90%E6%A8%A1%E5%9D%97" target="_blank" rel="noopener">git 子模块</a></p>
+<h3 id="git-submodule-foreach-1"><a href="#git-submodule-foreach-1" class="headerlink" title="git submodule foreach"></a>git submodule foreach</h3><p>简单来说 <code>git submodule foreach</code> 它能在每一个子模块中运行任意命令</p>
+<h4 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h4><p>比如，我们希望所有的子模块都切换到 <code>develop</code> 分支</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git submodule foreach git checkout develop</span><br></pre></td></tr></table></figure>
+<p>再比如 ，我们希望拉取所有子模块的代码</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git submodule foreach git pull</span><br></pre></td></tr></table></figure>
+<h4 id="不报错退出的执行"><a href="#不报错退出的执行" class="headerlink" title="不报错退出的执行"></a>不报错退出的执行</h4><p>但是 <code>foreach</code> 是遍历所有的子模块，我们要在所有的子模块下进行执行，势必会有场景中提到的报错情况，于是我去查看了官方文档: <a href="https://git-scm.com/docs/git-submodule" target="_blank" rel="noopener">git-submodule</a></p>
+<p><img src="https://user-gold-cdn.xitu.io/2020/5/31/172689a578f67a41?w=1366&amp;h=830&amp;f=png&amp;s=315486" alt></p>
+<p>官方给了一种解决方案，可以解决 <code>git</code> 在子模块中执行报错后直接退出，而是继续执行。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git submodule foreach <span class="string">'其他命令 || :'</span></span><br></pre></td></tr></table></figure>
+<p><strong>任何子模块中命令的非零返回都会导致处理终止</strong></p>
+<p>其实我们还可以这样：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git submodule foreach <span class="string">'其他命令 || true'</span></span><br></pre></td></tr></table></figure>
+<h4 id="选择跳过"><a href="#选择跳过" class="headerlink" title="选择跳过"></a>选择跳过</h4><p>现在我们已经实现了执行命令后不报错退出，但是还没解决可以自主选择某几个子模块不执行/执行我们的命令，想想这样一个场景，我们需要在某个命名为 <code>release-bak</code> 的分支上面打个 <code>tag</code> 对分支进行保存，但是现在某个子模块的分支上没有 <code>release-bak</code> 这个分支，在批量执行 <code>git tag xxx</code> 的时候，由于不报错，所有的模块都会执行，但是没有 <code>release-bak</code> 分支的这个模块打的 <code>tag</code> 不是我们预期的，这种情况如何处理呢？</p>
+<p>其实官网也给了我们解决方式，让我们看下 <code>git foreach</code> 的说明</p>
+<p><img src="https://user-gold-cdn.xitu.io/2020/5/31/17268a7ff6320932?w=668&amp;h=62&amp;f=png&amp;s=13621" alt></p>
+<p>我们再回忆下解释：</p>
+<p><strong>git submodule foreach 它能在每一个子模块中运行任意命令</strong></p>
+<p>那么是否我们可以在 <code>git submodule foreach</code> 后面执行任何 <code>bash</code> 命令呢？</p>
+<p>于是我在 <code>git submodule foreach</code> 后面写了一个 <code>cash 语句</code>来进行执行:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git submodule foreach <span class="string">'case $name in a-Module|b-Module|c-Module) ;; *) git status ;; esac'</span></span><br></pre></td></tr></table></figure>
+<p>这个命令是去批量执行，如果遇到 <code>a-Module</code>，<code>b-Module</code>，<code>c-Module</code> 中的任何一个，什么都不操作，其他的子模块中，执行 <code>git status</code>。<br>测试后，的确可以跳过 <code>a-Module|b-Module|c-Module</code> 这三个模块进行处理。</p>
+<p>那么了解这个特性后，我们就彻底解放天性，可以随心的去通过条件控制我们 执行或者不执行 的各种情况。</p>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p>其实 <code>git</code> 拥有很多特性，好多我们都没学习过、使用过，还是需要多积累和学习，在这里祝各位 <strong>0 error, 0 bug</strong></p>
+<p><img src="https://user-gold-cdn.xitu.io/2020/5/31/17268b159f13f49e?w=540&amp;h=400&amp;f=png&amp;s=118912" alt></p>
+
+      
+      <!-- 
+        <div class="readmore">
+          <a href="/2020/05/31/knowledge/git/submoduleForeach/" class="flat-box">
+            <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
+            阅读全文
+          </a>
+        </div>
+       -->
+    </div>
+    
+      <div class="readmore">
+        <a href="/2020/05/31/knowledge/git/submoduleForeach/" class="flat-box">
+          <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
+          阅读全文
+        </a>
+      </div>
+    
+    
+      <div class="full-width auto-padding tags">
+        
+          <a href="/tags/Git/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>Git</a>
+        
+      </div>
+    
+  </section>
+</article>
+
+          </div>
+        
       
         
           <div class="post-wrapper">
@@ -1568,281 +1711,6 @@
           </div>
         
       
-        
-          <div class="post-wrapper">
-            <article class="post reveal ">
-  
-
-
-  <section class="meta">
-    
-    
-    <div class="meta" id="header-meta">
-      
-        
-  <h2 class="title">
-    <a href="/2019/08/05/knowledge/git/gitManage/">
-      前端分支管理
-    </a>
-  </h2>
-  
-
-
-      
-      <div class="new-meta-box">
-        
-          
-        
-          
-            
-  <div class="new-meta-item author">
-    <a href="https://lokya.github.io" rel="nofollow">
-      
-        <i class="fas fa-user" aria-hidden="true"></i>
-      
-      <p>Lokya</p>
-    </a>
-  </div>
-
-
-          
-        
-          
-            <div class="new-meta-item date">
-  <a class="notlink">
-    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-    <p>2019-08-05</p>
-  </a>
-</div>
-
-          
-        
-          
-            
-  
-  <div class="new-meta-item category">
-    <a href="/categories/Git/" rel="nofollow">
-      <i class="fas fa-folder-open" aria-hidden="true"></i>
-      <p>Git</p>
-    </a>
-  </div>
-
-
-          
-        
-          
-            
-
-          
-        
-          
-            
-
-          
-        
-      </div>
-      
-        <hr>
-      
-    </div>
-  </section>
-
-
-  <section class="article typo fold-all">
-    <div class="article-entry" itemprop="articleBody">
-       
-        <h1 id="前端分支管理"><a href="#前端分支管理" class="headerlink" title="前端分支管理"></a>前端分支管理</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>最近要对前端分支管管理进一步规范化，于是就是现在公司项目中的分支管理进行总结和扩展，设计分支和管理规范。</p>
-<p>由于项目采用 <code>monorepo</code> 模式，各个分组代码维护在 <code>package</code> 下面各个模块中，要做到各组开发方便，不同组间不干扰，同时也要可以实时测试开发环境，而且发版发布稳定版本，于是就指定如下的分支管理规范。</p>
-<p>项目中对权限有所管控，由于部分人员的<code>git</code>水准实在不敢恭维，于是只有小组leader可以进行合并、升级等操作。</p>
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>软件的版本控制以及分支管理贯穿于整个软件产品的生命周期，日常的项目管理对于开发团队能否有节奏且顺利的交付软件也很重要。</p>
-<p>版本控制有很多种，例如我们常见的<code>Git</code>、<code>SVN</code>、<code>VSS</code>等，本项目中主要使用<code>Git</code> 进行版本控制。</p>
-<p><code>Git</code>分支管理模型有三个，即<code>GitFlow</code>、<code>GitLabFlow</code>、<code>GitHubFlow</code>。下面将介绍这三种分支模型的原理，使用场景和优缺点等</p>
-<p><strong>GitFlow</strong></p>
-<hr>
-<p><code>GitFlow</code> 是最早诞生并得到广泛应用的一种工作流程。</p>
-<p>该模型中存在两种长期分支：<code>master</code> 和 <code>develop</code>。 <code>master</code>中存放对外发布的版本，只有稳定的发布版本才会合并到<code>master</code>中。 <code>develop</code>用于日常开发，存放最新的开发版本。</p>
-<p>也存在三种临时分支：<code>feature</code>, <code>hotfix</code>, <code>release</code>。</p>
-<ul>
-<li><code>feature</code>分支是为了开发某个特定功能，从<code>develop</code>分支中切出，开发完成后合并到<code>develop</code>分支中。</li>
-<li><code>hotfix</code>分支是修复发布后发现的Bug的分支，从<code>master</code>分支中切出，修补完成后再合并到<code>master</code>和<code>develop</code>分支。</li>
-<li><code>release</code>分支指发布稳定版本前使用的预发布分支，从<code>develop</code>分支中切出，预发布完成后，合并到<code>develop</code>和<code>master</code>分支中。</li>
-</ul>
-<p>优点：</p>
-<ul>
-<li><code>feature</code> 分支使开发代码隔离，可以独立的完成开发、构建、测试</li>
-<li><code>feature</code> 分支开发周期长于<code>release</code>时，可避免未完成的<code>feature</code>进入生产环境</li>
-</ul>
-<p>缺点：</p>
-<ul>
-<li>无法支持持续发布。</li>
-<li>过于复杂的分支管理，加重了开发者的负担，使开发者不能专注开发。</li>
-</ul>
-<p><strong>GitHubFlow</strong></p>
-<hr>
-<p><code>GitHubFlow</code>分支模型只存在一个<code>master</code>主分支，日常开发都合并至<code>master</code>，永远保持其为最新的代码且随时可发布的。</p>
-<ul>
-<li>在需要添加或修改代码时， 基于<code>master</code>创建分支，提交修改。</li>
-<li>创建<code>Pull Request</code>，所有人讨论和审查你的代码。</li>
-<li>然后部署到生产环境中进行验证。</li>
-<li>待验证通过后合并到<code>master</code>分支中。</li>
-</ul>
-<p>这个分支模型的优势在于简洁易理解，将<code>master</code>作为核心的分支，代码更新持续集成至<code>master</code>上。根据目前收集到的反应来看，得到了更多的好评，认为<code>GitHubFlow</code>分支模型更加轻便快捷。</p>
-<p><strong>GitLabFlow</strong></p>
-<hr>
-<p><code>GitLabFlow</code> 是<code>GitFlow</code>和<code>GitHubFlow</code>的结合,它吸取了两者的优点，既有适应不同开发环境的弹性，又有单一主分支的简单和便利。</p>
-<p>该模型采取上游优先的原则，即只存在一个<code>master</code>主分支，它是所以分支的上游。只有上游分支采纳的变动才能应用到其他分支。</p>
-<ul>
-<li>对于持续发布的项目，建议在<code>master</code>之外再建立对应的环境分支，如预生产环境<code>pre-production</code>，生产环境<code>production</code>。</li>
-<li>对于版本发布的项目，建议基于<code>master</code>创建稳定版本对应的分支，如<code>stable-1</code>，<code>stable-2</code>。</li>
-</ul>
-<h2 id="分支命名"><a href="#分支命名" class="headerlink" title="分支命名"></a>分支命名</h2><table>
-<thead>
-<tr>
-<th style="text-align:left">前缀</th>
-<th style="text-align:left">含义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">master</td>
-<td style="text-align:left">主分支，可用的、稳定的、可直接发布的版本</td>
-</tr>
-<tr>
-<td style="text-align:left">develop</td>
-<td style="text-align:left">开发主分支，最新的代码分支</td>
-</tr>
-<tr>
-<td style="text-align:left">publish</td>
-<td style="text-align:left">稳定发布分支</td>
-</tr>
-<tr>
-<td style="text-align:left">模块名称-dev</td>
-<td style="text-align:left">模块开发主分支</td>
-</tr>
-<tr>
-<td style="text-align:left">模块名称-工号</td>
-<td style="text-align:left">模块下个人开发分支</td>
-</tr>
-<tr>
-<td style="text-align:left">release-**</td>
-<td style="text-align:left">预发布分支</td>
-</tr>
-<tr>
-<td style="text-align:left">hotfix-**</td>
-<td style="text-align:left">已发布bug修复分支</td>
-</tr>
-<tr>
-<td style="text-align:left">1.x.x</td>
-<td style="text-align:left">例如1.1.x分支用于保留1.1.x版本中所有模块代码</td>
-</tr>
-</tbody>
-</table>
-<h2 id="分支管理"><a href="#分支管理" class="headerlink" title="分支管理"></a>分支管理</h2><ul>
-<li><p>主分支 <code>develop</code>,  <code>master</code>, <code>publish</code>全部被保护起来，禁止直接修改主分支以及把本地分支 push 到主分支。</p>
-</li>
-<li><p>主分支 <code>develop</code>,只能在 Gitlab 上通过 MergeRequests发起合并请求，并且只能由各组前端负责人在 Gitlab 上做合并。</p>
-</li>
-<li><p>主分支<code>master</code>,只能每天由负责人进行合并<code>develop</code> 到 <code>master</code>。</p>
-</li>
-<li><code>1.1.x</code> 分支可以合并到除了<code>master</code>、<code>publish</code> 外的其他分支，一般通过这个分支进行升级相关包和文件。</li>
-<li><code>xxxx-dev</code> 分支可以发起合并请求到 <code>develop</code>.  禁止其他分支(例如: <code>feature-xxx</code>) 合并到 <code>develop</code> 分支。</li>
-<li>个人的开发分支只能合并到各组的 <code>xxxx-dev</code> 分支。</li>
-<li>大版本整体升级后，会保留前一版本的分支，如果有bug可以基于其建立<code>1.x.x-hotfix</code>分支对上面的bug进行修复。例如从<code>1.1.10</code>升级到<code>1.2.0</code>后，在<code>1.1.x</code>分支会保留<code>1.1</code>版本中所有代码，如果有bug基于<code>1.1.x</code>建立<code>1.1.x-hotfix</code>分支对bug进行修复。</li>
-</ul>
-<p>分支管理图如下</p>
-<p><img src="/images/knowledge/gitManage.png" alt="分支管理图" title="分支管理图"></p>
-<h2 id="提交规范"><a href="#提交规范" class="headerlink" title="提交规范"></a>提交规范</h2><h3 id="提交步骤"><a href="#提交步骤" class="headerlink" title="提交步骤"></a>提交步骤</h3><ol>
-<li><code>git add</code> 后执行 <code>yarn commit</code>。</li>
-<li>要选择提交的类型。（可选类型如下）。</li>
-<li>要填写提交的模块，例如<code>srm-front-spfm</code>。</li>
-<li>要填写提交说明。例如：修复xxx导致的bug。</li>
-</ol>
-<h3 id="提交类型"><a href="#提交类型" class="headerlink" title="提交类型"></a>提交类型</h3><table>
-<thead>
-<tr>
-<th>类型</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>build</td>
-<td>主要目的是修改项目构建系统(例如 glup，webpack，rollup 的配置等)的提交</td>
-</tr>
-<tr>
-<td>ci</td>
-<td>主要目的是修改项目继续集成流程(例如 Travis，Jenkins，GitLab CI，Circle等)的提交</td>
-</tr>
-<tr>
-<td>docs</td>
-<td>文档更新</td>
-</tr>
-<tr>
-<td>feat</td>
-<td>新增功能</td>
-</tr>
-<tr>
-<td>fix</td>
-<td>bug 修复</td>
-</tr>
-<tr>
-<td>perf</td>
-<td>性能优化</td>
-</tr>
-<tr>
-<td>refactor</td>
-<td>重构代码(既没有新增功能，也没有修复 bug)</td>
-</tr>
-<tr>
-<td>style</td>
-<td>不影响程序逻辑的代码修改(修改空白字符，补全缺失的分号等)</td>
-</tr>
-<tr>
-<td>test</td>
-<td>新增测试用例或是更新现有测试</td>
-</tr>
-<tr>
-<td>revert</td>
-<td>回滚某个更早之前的提交</td>
-</tr>
-<tr>
-<td>chore</td>
-<td>不属于以上类型的其他类型</td>
-</tr>
-</tbody>
-</table>
-
-      
-      <!-- 
-        <div class="readmore">
-          <a href="/2019/08/05/knowledge/git/gitManage/" class="flat-box">
-            <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
-            阅读全文
-          </a>
-        </div>
-       -->
-    </div>
-    
-      <div class="readmore">
-        <a href="/2019/08/05/knowledge/git/gitManage/" class="flat-box">
-          <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
-          阅读全文
-        </a>
-      </div>
-    
-    
-      <div class="full-width auto-padding tags">
-        
-          <a href="/tags/Git/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>Git</a>
-        
-      </div>
-    
-  </section>
-</article>
-
-          </div>
-        
-      
     
   </section>
   
@@ -1983,7 +1851,7 @@
         
           <li><a class="flat-box" title="/categories/CSS/" href="/categories/CSS/"><div class="name">CSS</div><div class="badge">(1)</div></a></li>
         
-          <li><a class="flat-box" title="/categories/Git/" href="/categories/Git/"><div class="name">Git</div><div class="badge">(4)</div></a></li>
+          <li><a class="flat-box" title="/categories/Git/" href="/categories/Git/"><div class="name">Git</div><div class="badge">(5)</div></a></li>
         
           <li><a class="flat-box" title="/categories/Yarn/" href="/categories/Yarn/"><div class="name">Yarn</div><div class="badge">(1)</div></a></li>
         

@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   
-  <title>Archives: 2019/5 | Lokya</title>
+  <title>git submodule foreach 忽略子模块 | Lokya</title>
   
   
   <meta name="description" content="lokya lokya blog">
@@ -48,7 +48,7 @@
   
   
   <div class="cover-wrapper">
-    <cover class="cover  half">
+    <cover class="cover post half">
       
         
   <h1 class="title">
@@ -214,28 +214,11 @@
   <div class="l_body">
     <div class='body-wrapper'>
       <div class="l_main">
-	
-		
-  <section class="post-list">
-    
-      
-        
-          
-        
-          
-        
-          
-        
-          
-        
-      
-    
-    
-      
-        
-          <div class="post-wrapper">
-            <article class="post reveal ">
   
+
+  
+    <article id="post" class="post white-box article-type-post" itemscope itemprop="blogPost">
+      
 
 
   <section class="meta">
@@ -244,11 +227,13 @@
     <div class="meta" id="header-meta">
       
         
-  <h2 class="title">
-    <a href="/2019/05/09/others/miscellany_2/">
-      声声慢
-    </a>
-  </h2>
+  
+    <h1 class="title">
+      <a href="/2020/05/31/knowledge/git/submoduleForeach/">
+        git submodule foreach 忽略子模块
+      </a>
+    </h1>
+    
   
 
 
@@ -275,7 +260,7 @@
             <div class="new-meta-item date">
   <a class="notlink">
     <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-    <p>2019-05-09</p>
+    <p>2020-05-31</p>
   </a>
 </div>
 
@@ -285,9 +270,9 @@
             
   
   <div class="new-meta-item category">
-    <a href="/categories/杂记/" rel="nofollow">
+    <a href="/categories/Git/" rel="nofollow">
       <i class="fas fa-folder-open" aria-hidden="true"></i>
-      <p>杂记</p>
+      <p>Git</p>
     </a>
   </div>
 
@@ -296,6 +281,19 @@
         
           
             
+  
+    <div class="new-meta-item browse busuanzi">
+      <a class="notlink">
+        <i class="fas fa-eye" aria-hidden="true"></i>
+        <p>
+          <span id="busuanzi_value_page_pv">
+            <i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i>
+          </span>
+        </p>
+      </a>
+    </div>
+  
+
 
           
         
@@ -312,423 +310,126 @@
   </section>
 
 
-  <section class="article typo fold-all">
-    <div class="article-entry" itemprop="articleBody">
-       
-        <h2 id="声声慢"><a href="#声声慢" class="headerlink" title="声声慢"></a>声声慢</h2><p>寻寻觅觅，冷冷清清，凄凄惨惨戚戚。乍暖还寒时候，最难将息。三杯两盏淡酒，怎敌他、晚来风急！雁过也，正伤心，却是旧时相识。</p>
-<p>满地黄花堆积，憔悴损，如今有谁堪摘？守着窗儿，独自怎生得黑！梧桐更兼细雨，到黄昏、点点滴滴。这次第，怎一个愁字了得！</p>
-<p>怎一个愁字了得啊！</p>
+      <section class="article typo">
+        <div class="article-entry" itemprop="articleBody">
+          <h1 id="git-submodule-foreach-忽略子模块"><a href="#git-submodule-foreach-忽略子模块" class="headerlink" title="git submodule foreach 忽略子模块"></a>git submodule foreach 忽略子模块</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>我们公司的项目是采用 <code>lerna</code> 进行管理的，主模块下面的每个模块都是由不同的开发团队进行开发的，存储在不同的 <code>git</code> 仓库，在每次大版本进行发布的时候，需要批量对所有模块进行操作，例如历史分支代码 <code>tag</code>保留，删除迭代分支，创建新的分支等。<br>但是项目在不同的迭代周期中会有新的模块临时添加进来，新的模块并没有创建和其他分支一样的迭代周期分支，在发版期间批量处理时，在每个模块下执行一些 <code>git</code> 命令会报错，导致执行中断。</p>
+<h2 id="git-submodule-foreach"><a href="#git-submodule-foreach" class="headerlink" title="git submodule foreach"></a>git submodule foreach</h2><h3 id="git-submodule"><a href="#git-submodule" class="headerlink" title="git submodule"></a>git submodule</h3><p><code>git</code> 子模块的用法，我就不多废话了，好多人都用过了，如果没有用过和了解过的朋友，可以参考官网文档： <a href="https://git-scm.com/book/zh/v2/Git-%E5%B7%A5%E5%85%B7-%E5%AD%90%E6%A8%A1%E5%9D%97" target="_blank" rel="noopener">git 子模块</a></p>
+<h3 id="git-submodule-foreach-1"><a href="#git-submodule-foreach-1" class="headerlink" title="git submodule foreach"></a>git submodule foreach</h3><p>简单来说 <code>git submodule foreach</code> 它能在每一个子模块中运行任意命令</p>
+<h4 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h4><p>比如，我们希望所有的子模块都切换到 <code>develop</code> 分支</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git submodule foreach git checkout develop</span><br></pre></td></tr></table></figure>
+<p>再比如 ，我们希望拉取所有子模块的代码</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git submodule foreach git pull</span><br></pre></td></tr></table></figure>
+<h4 id="不报错退出的执行"><a href="#不报错退出的执行" class="headerlink" title="不报错退出的执行"></a>不报错退出的执行</h4><p>但是 <code>foreach</code> 是遍历所有的子模块，我们要在所有的子模块下进行执行，势必会有场景中提到的报错情况，于是我去查看了官方文档: <a href="https://git-scm.com/docs/git-submodule" target="_blank" rel="noopener">git-submodule</a></p>
+<p><img src="https://user-gold-cdn.xitu.io/2020/5/31/172689a578f67a41?w=1366&amp;h=830&amp;f=png&amp;s=315486" alt></p>
+<p>官方给了一种解决方案，可以解决 <code>git</code> 在子模块中执行报错后直接退出，而是继续执行。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git submodule foreach <span class="string">'其他命令 || :'</span></span><br></pre></td></tr></table></figure>
+<p><strong>任何子模块中命令的非零返回都会导致处理终止</strong></p>
+<p>其实我们还可以这样：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git submodule foreach <span class="string">'其他命令 || true'</span></span><br></pre></td></tr></table></figure>
+<h4 id="选择跳过"><a href="#选择跳过" class="headerlink" title="选择跳过"></a>选择跳过</h4><p>现在我们已经实现了执行命令后不报错退出，但是还没解决可以自主选择某几个子模块不执行/执行我们的命令，想想这样一个场景，我们需要在某个命名为 <code>release-bak</code> 的分支上面打个 <code>tag</code> 对分支进行保存，但是现在某个子模块的分支上没有 <code>release-bak</code> 这个分支，在批量执行 <code>git tag xxx</code> 的时候，由于不报错，所有的模块都会执行，但是没有 <code>release-bak</code> 分支的这个模块打的 <code>tag</code> 不是我们预期的，这种情况如何处理呢？</p>
+<p>其实官网也给了我们解决方式，让我们看下 <code>git foreach</code> 的说明</p>
+<p><img src="https://user-gold-cdn.xitu.io/2020/5/31/17268a7ff6320932?w=668&amp;h=62&amp;f=png&amp;s=13621" alt></p>
+<p>我们再回忆下解释：</p>
+<p><strong>git submodule foreach 它能在每一个子模块中运行任意命令</strong></p>
+<p>那么是否我们可以在 <code>git submodule foreach</code> 后面执行任何 <code>bash</code> 命令呢？</p>
+<p>于是我在 <code>git submodule foreach</code> 后面写了一个 <code>cash 语句</code>来进行执行:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git submodule foreach <span class="string">'case $name in a-Module|b-Module|c-Module) ;; *) git status ;; esac'</span></span><br></pre></td></tr></table></figure>
+<p>这个命令是去批量执行，如果遇到 <code>a-Module</code>，<code>b-Module</code>，<code>c-Module</code> 中的任何一个，什么都不操作，其他的子模块中，执行 <code>git status</code>。<br>测试后，的确可以跳过 <code>a-Module|b-Module|c-Module</code> 这三个模块进行处理。</p>
+<p>那么了解这个特性后，我们就彻底解放天性，可以随心的去通过条件控制我们 执行或者不执行 的各种情况。</p>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p>其实 <code>git</code> 拥有很多特性，好多我们都没学习过、使用过，还是需要多积累和学习，在这里祝各位 <strong>0 error, 0 bug</strong></p>
+<p><img src="https://user-gold-cdn.xitu.io/2020/5/31/17268b159f13f49e?w=540&amp;h=400&amp;f=png&amp;s=118912" alt></p>
 
-      
-      <!-- 
-        <div class="readmore">
-          <a href="/2019/05/09/others/miscellany_2/" class="flat-box">
-            <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
-            阅读全文
-          </a>
         </div>
-       -->
-    </div>
-    
-      <div class="readmore">
-        <a href="/2019/05/09/others/miscellany_2/" class="flat-box">
-          <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
-          阅读全文
-        </a>
-      </div>
-    
-    
-      <div class="full-width auto-padding tags">
-        
-          <a href="/tags/杂记/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>杂记</a>
-        
-      </div>
-    
-  </section>
-</article>
-
-          </div>
-        
-      
-        
-          <div class="post-wrapper">
-            <article class="post reveal ">
-  
-
-
-  <section class="meta">
-    
-    
-    <div class="meta" id="header-meta">
-      
-        
-  <h2 class="title">
-    <a href="/2019/05/07/others/miscellany_1/">
-      论部门研发项目之怪现状
-    </a>
-  </h2>
-  
-
-
-      
-      <div class="new-meta-box">
         
           
-        
-          
-            
-  <div class="new-meta-item author">
-    <a href="https://lokya.github.io" rel="nofollow">
-      
-        <i class="fas fa-user" aria-hidden="true"></i>
-      
-      <p>Lokya</p>
-    </a>
-  </div>
 
 
-          
+  <section class="meta" id="footer-meta">
+    <hr>
+    <div class="new-meta-box">
+      
         
-          
-            <div class="new-meta-item date">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-05-31T11:23:01+08:00">
   <a class="notlink">
-    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-    <p>2019-05-07</p>
+    <i class="fas fa-clock" aria-hidden="true"></i>
+    <p>最后更新于 2020年5月31日</p>
   </a>
 </div>
 
-          
         
-          
-            
-  
-  <div class="new-meta-item category">
-    <a href="/categories/杂记/" rel="nofollow">
-      <i class="fas fa-folder-open" aria-hidden="true"></i>
-      <p>杂记</p>
-    </a>
-  </div>
-
-
-          
-        
-          
-            
-
-          
-        
-          
-            
-
-          
-        
-      </div>
       
-        <hr>
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Git/" rel="nofollow"><i class="fas fa-hashtag" aria-hidden="true"></i>&nbsp;<p>Git</p></a></div>
+
+
+        
+      
+        
+          
+
+        
       
     </div>
   </section>
 
 
-  <section class="article typo fold-all">
-    <div class="article-entry" itemprop="articleBody">
-       
-        <p>新产品开发已一年有余，每思项目中之事，无不发现其怪。此怪异有能者不作为，无能者空哀怨。。。。</p>
-      
-      <!-- 
-        <div class="readmore">
-          <a href="/2019/05/07/others/miscellany_1/" class="flat-box">
-            <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
-            阅读全文
-          </a>
-        </div>
-       -->
-    </div>
-    
-      <div class="readmore">
-        <a href="/2019/05/07/others/miscellany_1/" class="flat-box">
-          <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
-          阅读全文
-        </a>
-      </div>
-    
-    
-      <div class="full-width auto-padding tags">
         
-          <a href="/tags/杂记/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>杂记</a>
         
-      </div>
-    
-  </section>
-</article>
-
-          </div>
+            <div class="prev-next">
+                
+                
+                    <section class="next">
+                        <span class="art-item-right" aria-hidden="true">
+                            <h6>下一页&nbsp;<i class="fas fa-chevron-right" aria-hidden="true"></i></h6>
+                            <h4>
+                                <a href="/2020/04/10/knowledge/yarn/resolutions/" rel="prev" title="package.json resolutions 深入浅出">
+                                    
+                                        package.json resolutions 深入浅出
+                                    
+                                </a>
+                            </h4>
+                            
+                                
+                                <h6 class="tags">
+                                    <a class="tag" href="/tags/Yarn/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>Yarn</a>
+                                </h6>
+                            
+                        </span>
+                    </section>
+                
+            </div>
         
-      
-        
-          <div class="post-wrapper">
-            <article class="post reveal ">
+      </section>
+    </article>
   
 
-
-  <section class="meta">
-    
-    
-    <div class="meta" id="header-meta">
-      
-        
-  <h2 class="title">
-    <a href="/2019/05/06/shoot/shoot_1/">
-      个人摄影 - 第一期
-    </a>
-  </h2>
-  拍照摄影
-
-
-      
-      <div class="new-meta-box">
-        
-          
-        
-          
-            
-  <div class="new-meta-item author">
-    <a href="https://lokya.github.io" rel="nofollow">
-      
-        <i class="fas fa-user" aria-hidden="true"></i>
-      
-      <p>Lokya</p>
-    </a>
-  </div>
-
-
-          
-        
-          
-            <div class="new-meta-item date">
-  <a class="notlink">
-    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-    <p>2019-05-06</p>
-  </a>
-</div>
-
-          
-        
-          
-            
   
-  <div class="new-meta-item category">
-    <a href="/categories/拍照摄影/" rel="nofollow">
-      <i class="fas fa-folder-open" aria-hidden="true"></i>
-      <p>拍照摄影</p>
-    </a>
-  </div>
+    <!-- 显示推荐文章和评论 -->
 
 
-          
-        
-          
-            
-
-          
-        
-          
-            
-
-          
-        
-      </div>
-      
-        <hr>
-      
-    </div>
-  </section>
-
-
-  <section class="article typo fold-all">
-    <div class="article-entry" itemprop="articleBody">
-      
-        <img src="/images/shoot/img_20180519.jpg">
-      
-      <!-- 
-        <div class="readmore">
-          <a href="/2019/05/06/shoot/shoot_1/" class="flat-box">
-            <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
-            阅读全文
-          </a>
-        </div>
-       -->
-    </div>
-    
-      <div class="readmore">
-        <a href="/2019/05/06/shoot/shoot_1/" class="flat-box">
-          <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
-          阅读全文
-        </a>
-      </div>
-    
-    
-      <div class="full-width auto-padding tags">
-        
-          <a href="/tags/拍照摄影/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>拍照摄影</a>
-        
-      </div>
-    
-  </section>
-</article>
-
-          </div>
-        
-      
-        
-          <div class="post-wrapper">
-            <article class="post reveal ">
-  
-
-
-  <section class="meta">
-    
-    
-    <div class="meta" id="header-meta">
-      
-        
-  <h2 class="title">
-    <a href="/2019/05/06/knowledge/es6/lesson_1/">
-      ES6-变量
-    </a>
-  </h2>
-  
-
-
-      
-      <div class="new-meta-box">
-        
-          
-        
-          
-            
-  <div class="new-meta-item author">
-    <a href="https://lokya.github.io" rel="nofollow">
-      
-        <i class="fas fa-user" aria-hidden="true"></i>
-      
-      <p>Lokya</p>
-    </a>
-  </div>
-
-
-          
-        
-          
-            <div class="new-meta-item date">
-  <a class="notlink">
-    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-    <p>2019-05-06</p>
-  </a>
-</div>
-
-          
-        
-          
-            
-  
-  <div class="new-meta-item category">
-    <a href="/categories/javascript/" rel="nofollow">
-      <i class="fas fa-folder-open" aria-hidden="true"></i>
-      <p>javascript</p>
-    </a>
-  </div>
-
-
-          
-        
-          
-            
-
-          
-        
-          
-            
-
-          
-        
-      </div>
-      
-        <hr>
-      
-    </div>
-  </section>
-
-
-  <section class="article typo fold-all">
-    <div class="article-entry" itemprop="articleBody">
-       
-        <h2 id="let-和-const"><a href="#let-和-const" class="headerlink" title="let 和 const"></a>let 和 const</h2><p><code>let</code>声明变量，类似于<code>var</code>，但是<code>let</code>有作用域的概念。<br><code>const</code> 声明常量，一旦声明后，不可改变。<code>const</code> 声明后要立马初始化。</p>
-<p><strong>作用域</strong></p>
-<p>作用域顾名思义就是只有在某个区域内起作用。<code>let</code> 就只能在其作用域中起作用。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="keyword">let</span> a = <span class="number">10</span>;</span><br><span class="line">  <span class="keyword">var</span> b = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">a <span class="comment">// ReferenceError: a is not defined.</span></span><br><span class="line">b <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
-<p><strong>变量提升</strong></p>
-<p><code>var</code> 命令会发生“变量提升”现象，即变量可以在声明之前使用，值为undefined。</p>
-<p><code>let</code> 定义的变量如果在声明之前使用会报错。</p>
-<p><strong>暂时性死区</strong></p>
-<p>如果区块中存在<code>let</code>和<code>const</code>命令，这个区块对这些命令声明的变量，从一开始就形成了封闭作用域（暂时性死区）。凡是在声明之前就使用这些变量，就会报错。</p>
-<p><strong>重复声明</strong></p>
-<p><code>let</code>不允许在相同作用域内，重复声明同一个变量。</p>
-<p><strong>const本质</strong></p>
-<p><code>const</code>实际上保证的，并不是变量的值不得改动，而是变量指向的那个内存地址所保存的数据不得改动。</p>
-<p>对于简单类型的数据（数值、字符串、布尔值），值就保存在变量指向的那个内存地址，因此等同于常量。但对于复合类型的数据（主要是对象和数组），变量指向的内存地址，保存的只是一个指向实际数据的指针，<code>const</code>只能保证这个指针是固定的（即总是指向另一个固定的地址），至于它指向的数据结构是不是可变的，就完全不能控制了。</p>
-<h2 id="global对象"><a href="#global对象" class="headerlink" title="global对象"></a>global对象</h2><p>顶层对象，在浏览器环境指的是<code>window</code>对象，在 <code>Node</code> 指的是<code>global</code>对象。</p>
-<p>ES5 之中，顶层对象的属性与全局变量是等价的。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.a = <span class="number">1</span>;</span><br><span class="line">a <span class="comment">// 1</span></span><br><span class="line"></span><br><span class="line">a = <span class="number">2</span>;</span><br><span class="line"><span class="built_in">window</span>.a <span class="comment">// 2</span></span><br></pre></td></tr></table></figure></p>
-<ul>
-<li>为了保持兼容性，<code>var</code>命令和<code>function</code>命令声明的全局变量，依旧是顶层对象的属性；</li>
-<li><code>let</code>命令、<code>const</code>命令、class命令声明的全局变量，不属于顶层对象的属性</li>
-</ul>
-
-      
-      <!-- 
-        <div class="readmore">
-          <a href="/2019/05/06/knowledge/es6/lesson_1/" class="flat-box">
-            <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
-            阅读全文
-          </a>
-        </div>
-       -->
-    </div>
-    
-      <div class="readmore">
-        <a href="/2019/05/06/knowledge/es6/lesson_1/" class="flat-box">
-          <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
-          阅读全文
-        </a>
-      </div>
-    
-    
-      <div class="full-width auto-padding tags">
-        
-          <a href="/tags/javascript/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>javascript</a>
-        
-          <a href="/tags/ES6/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>ES6</a>
-        
-      </div>
-    
-  </section>
-</article>
-
-          </div>
-        
-      
-    
-  </section>
-  
-    
-    <!-- 根据主题中的设置决定是否在archive中针对摘要部分的MathJax公式加载mathjax.js文件 -->
-    
-    
 
   
 
 
-	
+  
+
+
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+
+
+  <script>
+    window.subData = {
+      title: 'git submodule foreach 忽略子模块',
+      tools: true
+    }
+  </script>
+
+
 </div>
 <aside class="l_side">
   
@@ -776,6 +477,20 @@
           
           
             
+  <section class="widget toc-wrapper">
+    
+<header class="pure">
+  <div><i class="fas fa-list fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;本文目录</div>
+  
+    <div class="wrapper"><a class="s-toc rightBtn" rel="external nofollow noopener noreferrer" href="javascript:void(0)"><i class="fas fa-thumbtack fa-fw"></i></a></div>
+  
+</header>
+
+    <div class="content pure">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#git-submodule-foreach-忽略子模块"><span class="toc-text">git submodule foreach 忽略子模块</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#背景"><span class="toc-text">背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#git-submodule-foreach"><span class="toc-text">git submodule foreach</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#git-submodule"><span class="toc-text">git submodule</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#git-submodule-foreach-1"><span class="toc-text">git submodule foreach</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#基本使用"><span class="toc-text">基本使用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#不报错退出的执行"><span class="toc-text">不报错退出的执行</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#选择跳过"><span class="toc-text">选择跳过</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其他"><span class="toc-text">其他</span></a></li></ol></li></ol>
+    </div>
+  </section>
+
 
           
         
@@ -935,14 +650,6 @@
   </div>
 </footer>
 <script>setLoadingBarProgress(80);</script>
-
-
-
-
-	<!-- 根据主题中的设置决定是否在archive中针对摘要部分的MathJax公式加载mathjax.js文件 -->
-	
-
-	
 
 
       <script>setLoadingBarProgress(60);</script>
