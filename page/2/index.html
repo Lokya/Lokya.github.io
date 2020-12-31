@@ -178,6 +178,176 @@
       
         
   <h2 class="title">
+    <a href="/2019/08/05/knowledge/git/versionControl/">
+      前端版本控制
+    </a>
+  </h2>
+  
+
+
+      
+      <div class="new-meta-box">
+        
+          
+        
+          
+            
+  <div class="new-meta-item author">
+    <a href="https://lokya.github.io" rel="nofollow">
+      
+        <i class="fas fa-user" aria-hidden="true"></i>
+      
+      <p>Lokya</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class="notlink">
+    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+    <p>2019-08-05</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  
+  <div class="new-meta-item category">
+    <a href="/categories/版本控制/" rel="nofollow">
+      <i class="fas fa-folder-open" aria-hidden="true"></i>
+      <p>版本控制</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            
+
+          
+        
+          
+            
+
+          
+        
+      </div>
+      
+        <hr>
+      
+    </div>
+  </section>
+
+
+  <section class="article typo fold-all">
+    <div class="article-entry" itemprop="articleBody">
+       
+        <h1 id="前端版本控制"><a href="#前端版本控制" class="headerlink" title="前端版本控制"></a>前端版本控制</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>公司代码采用 <code>monorepo</code> 模式，在 <code>package</code> 文件夹下管理各个模块，整个项目采用 <code>lerna</code> 进行管理。</p>
+<p>最近项目也到稳定期，需要进行发版和发布，对于项目来说，直接使用某一个版本的<code>npm</code>包即可，于是要制定一个版本控制的规范。</p>
+<p>公司的发布源设置为私有源，但是想了想这个方式同样适用于 <code>npm</code> 公有源。</p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+<p>使用语义化版本控制(<code>Semantic Versioning</code>)，你必须先有定义好的公共 API 。这可以透过文件定义或代码强制要求来实现(API 文档)。无论如何，这套 API 的清楚明了是十分重要的。一旦你定义了公共 API，你就可以透过修改相应的版本号来向大家说明你的修改。考虑使用这样的版本号格式：X.Y.Z （主版本号.次版本号.修订号），先行版本号及版本编译信息可以加到“主版本号.次版本号.修订号”的后面，作为延伸。</p>
+</blockquote>
+<h2 id="版本号递增规则"><a href="#版本号递增规则" class="headerlink" title="版本号递增规则"></a>版本号递增规则</h2><ul>
+<li>主版本号：当你做了不兼容的 API 修改，递增主版本号</li>
+<li>次版本号：当你做了向下兼容的功能性新，递增次版本号</li>
+<li>修订号：当你做了向下兼容的问题修正，递增修订号</li>
+</ul>
+<h2 id="语义化版本控制规范"><a href="#语义化版本控制规范" class="headerlink" title="语义化版本控制规范"></a>语义化版本控制规范</h2><ul>
+<li>使用语义化版本控制的软件<code>必须</code>定义公共 API。该 API 可以在代码中被定义或出现于严谨的文件内。无论何种形式都应该力求精确且完整。</li>
+<li>标准的版本号<code>必须</code>采用 X.Y.Z 的格式，其中 X、Y 和 Z 为非负的整数，且<code>禁止</code>在数字前方补零。X 是主版本号、Y 是次版本号、而 Z 为修订号。每个元素<code>必须</code>以数值来递增。例如：1.9.1 -&gt; 1.10.0 -&gt; 1.11.0。</li>
+<li>标记版本号的软件发行后，<code>禁止</code>改变该版本软件的内容。任何修改都<code>必须</code>以新版本发行。</li>
+<li>主版本号为零（0.y.z）的软件处于开发初始阶段，一切都可能随时被改变。这样的公共 API 不应该被视为稳定版。<strong>以 0.1.0 作为你的初始化开发版本，并在后续的每次发行时递增次版本号</strong></li>
+<li>1.0.0 的版本号用于界定公共 API 的形成。这一版本之后所有的版本号更新都基于公共 API 及其修改内容。<strong>当你的软件被用于正式环境，它应该已经达到了 1.0.0 版。</strong></li>
+<li>修订号 Z（x.y.Z | x &gt; 0）<code>必须</code>在只做了向下兼容的修正时才递增。这里的修正指的是针对不正确结果而进行的内部修改。</li>
+<li>次版本号 Y（x.Y.z | x &gt; 0）<code>必须</code>在有向下兼容的新功能出现时递增。在任何公共 API 的功能被标记为弃用时也<code>必须</code>递增。也<code>可以</code>在内部程序有大量新功能或改进被加入时递增，其中<code>可以</code>包括修订级别的改变。每当次版本号递增时，修订号<code>必须</code>归零。</li>
+<li>主版本号 X（X.y.z | X &gt; 0）<code>必须</code>在有任何不兼容的修改被加入公共 API 时递增。其中<code>可以</code>包括次版本号及修订级别的改变。每当主版本号递增时，次版本号和修订号<code>必须</code>归零。</li>
+<li>先行版本号<code>可以</code>被标注在修订版之后，先加上一个连接号再加上一连串以句点分隔的标识符号来修饰。标识符号<code>必须</code>由 ASCII 码的英数字和连接号 [0-9A-Za-z-] 组成，且<code>禁止</code>留白。数字型的标识符号<code>禁止</code>在前方补零。先行版的优先级低于相关联的标准版本。被标上先行版本号则表示这个版本并非稳定而且可能无法达到兼容的需求。范例：1.0.0-alpha、1.0.0-alpha.1、1.0.0-0.3.7、1.0.0-x.7.z.92。</li>
+<li>版本编译信息<code>可以</code>被标注在修订版或先行版本号之后，先加上一个加号再加上一连串以句点分隔的标识符号来修饰。标识符号<code>必须</code>由 ASCII 的英数字和连接号 [0-9A-Za-z-] 组成，且<code>禁止</code>留白。当判断版本的优先层级时，版本编译信息可被忽略。因此当两个版本只有在版本编译信息有差别时，属于相同的优先层级。范例：1.0.0-alpha+001、1.0.0+20130313144700、1.0.0-beta+exp.sha.5114f85。</li>
+<li>版本的优先层级指的是不同版本在排序时如何比较。判断优先层级时，<code>必须</code>把版本依序拆分为主版本号、次版本号、修订号及先行版本号后进行比较。由左到右依序比较每个标识符号，第一个差异值用来决定优先层级：主版本号、次版本号及修订号以数值比较，例如：1.0.0 &lt; 2.0.0 &lt; 2.1.0 &lt; 2.1.1。当主版本号、次版本号及修订号都相同时，改以优先层级比较低的先行版本号决定。例如：1.0.0-alpha &lt; 1.0.0。有相同主版本号、次版本号及修订号的两个先行版本号，其优先层级<code>必须</code>透过由左到右的每个被句点分隔的标识符号来比较，直到找到一个差异值后决定：只有数字的标识符号以数值高低比较，有字母或连接号时则逐字以 ASCII 的排序来比较。数字的标识符号比非数字的标识符号优先层级低。若开头的标识符号都相同时，栏位比较多的先行版本号优先层级比较高。范例：1.0.0-alpha &lt; 1.0.0-alpha.1 &lt; 1.0.0-alpha.beta &lt; 1.0.0-beta &lt; 1.0.0-beta.2 &lt; 1.0.0-beta.11 &lt; 1.0.0- rc.1 &lt; 1.0.0。</li>
+</ul>
+<h2 id="版本号信息"><a href="#版本号信息" class="headerlink" title="版本号信息"></a>版本号信息</h2><ul>
+<li><strong>alpha</strong>：内部测试版。α是希腊字母的第一个，表示最早的版本，一般用户不要下载这个版本，这个版本包含很多BUG，功能也不全，主要是给开发人员和测试人员测试和找BUG用的。</li>
+<li><strong>beta</strong>：公开测试版。β是希腊字母的第二个，顾名思义，这个版本比alpha版发布得晚一些，主要是给“部落”用户和忠实用户测试用的，该版本任然存在很多BUG，但是相对alpha版要稳定一些。这个阶段版本的软件还会不断增加新功能。如果你是发烧友，可以下载这个版本。</li>
+<li><strong>RC</strong>(Release Candidate)：候选版本。该版本又较beta版更进一步了，该版本功能不再增加，和最终发布版功能一样。这个版本有点像最终发行版之前的一个类似预览版，这个的发布就标明离最终发行版不远了。作为普通用户，如果你很急着用这个软件的话，也可以下载这个版本。</li>
+<li><strong>stable</strong>：稳定版。在开源软件中，都有stable版，这个就是开源软件的最终发行版，用户可以放心大胆的用了。</li>
+<li><strong>RELEASE</strong>：最终版本。在前面版本的一系列测试版之后，终归会有一个正式版本，是最终交付用户使用的一个版本。该版本有时也称为标准版。一般情况下，Release不会以单词形式出现在软件封面上，取而代之的是符号®。</li>
+</ul>
+<h2 id="发版流程"><a href="#发版流程" class="headerlink" title="发版流程"></a>发版流程</h2><ol>
+<li>当开发达到发版要求、对某个版本进行了bug修复，或者新增相关内容之后，需要进行发版。</li>
+<li>所有模块版本从 <code>1.0.0</code> 开始，基本的修改和bug修复后版本最后一位加1，即 <code>1.1.0</code> &gt; <code>1.1.1</code>。</li>
+<li>当需要大版本发布时候，各组需要对中间版本进行升级，最后版本从0开始，即 <code>1.1.X</code> &gt; <code>1.2.0</code>。</li>
+<li><strong>禁止</strong>在同一版本多次发布内容，每次发版版本号加1，请勿随意增减版本号。</li>
+</ol>
+<h2 id="发布操作"><a href="#发布操作" class="headerlink" title="发布操作"></a>发布操作</h2><h4 id="源"><a href="#源" class="headerlink" title="源"></a>源</h4><p>将本项目发布到<code>nexus npm</code>私有源仓库</p>
+<h4 id="进入到发布模块"><a href="#进入到发布模块" class="headerlink" title="进入到发布模块"></a>进入到发布模块</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> packages/&lt; xxxx module&gt;</span><br><span class="line">$ yarn transpile</span><br></pre></td></tr></table></figure>
+<h4 id="修改版本号"><a href="#修改版本号" class="headerlink" title="修改版本号"></a>修改版本号</h4><p>修改模块文件下<code>package.json</code>中 <code>version</code>字段的值，手动+1</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">"version": "1.1.0",</span><br><span class="line">// 手动加1</span><br><span class="line">"version": "1.1.1",</span><br></pre></td></tr></table></figure>
+<h4 id="生成-auth-hash"><a href="#生成-auth-hash" class="headerlink" title="生成 auth hash**"></a>生成 <code>auth hash</code>**</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> -n <span class="string">'username:password'</span> | openssl base64</span><br><span class="line"><span class="comment"># 得到 40位编码</span></span><br><span class="line">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</span><br></pre></td></tr></table></figure>
+<p><code>username</code> 和<code>password</code>需要找项目负责人进行提供。</p>
+<h4 id="配置npm-config"><a href="#配置npm-config" class="headerlink" title="配置npm config"></a>配置npm config</h4><p>执行如下命令将上面的配置加入到<code>node.js</code>全局环境变量配置文件<code>.npmrc</code>中</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm config edit</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">email=your email</span><br><span class="line">always-auth=true</span><br><span class="line">_auth=yourbase64hashcode</span><br></pre></td></tr></table></figure>
+<h4 id="发布"><a href="#发布" class="headerlink" title="发布"></a>发布</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm publish</span><br></pre></td></tr></table></figure>
+<h4 id="查看"><a href="#查看" class="headerlink" title="查看"></a>查看</h4><ol>
+<li><p>打开提供的源地址地址</p>
+</li>
+<li><p>找到自己刚刚发布的包</p>
+</li>
+<li><p>点击发布模块进入，看到最新版本已经改变，即为发布成功。</p>
+</li>
+</ol>
+
+      
+      <!-- 
+        <div class="readmore">
+          <a href="/2019/08/05/knowledge/git/versionControl/" class="flat-box">
+            <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
+            阅读全文
+          </a>
+        </div>
+       -->
+    </div>
+    
+      <div class="readmore">
+        <a href="/2019/08/05/knowledge/git/versionControl/" class="flat-box">
+          <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
+          阅读全文
+        </a>
+      </div>
+    
+    
+      <div class="full-width auto-padding tags">
+        
+          <a href="/tags/版本控制/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>版本控制</a>
+        
+      </div>
+    
+  </section>
+</article>
+
+          </div>
+        
+      
+        
+          <div class="post-wrapper">
+            <article class="post reveal ">
+  
+
+
+  <section class="meta">
+    
+    
+    <div class="meta" id="header-meta">
+      
+        
+  <h2 class="title">
     <a href="/2019/08/05/knowledge/git/gitManage/">
       前端分支管理
     </a>
@@ -1449,7 +1619,7 @@
         
           <li><a class="flat-box" title="/categories/拍照摄影/" href="/categories/拍照摄影/"><div class="name">拍照摄影</div><div class="badge">(1)</div></a></li>
         
-          <li><a class="flat-box" title="/categories/杂记/" href="/categories/杂记/"><div class="name">杂记</div><div class="badge">(3)</div></a></li>
+          <li><a class="flat-box" title="/categories/杂记/" href="/categories/杂记/"><div class="name">杂记</div><div class="badge">(4)</div></a></li>
         
           <li><a class="flat-box" title="/categories/版本控制/" href="/categories/版本控制/"><div class="name">版本控制</div><div class="badge">(1)</div></a></li>
         
@@ -1476,7 +1646,7 @@
 </header>
 
     <div class="content pure">
-      <a href="/tags/CSS3/" style="font-size: 14px; color: #999">CSS3</a> <a href="/tags/ES6/" style="font-size: 19px; color: #777">ES6</a> <a href="/tags/Git/" style="font-size: 24px; color: #555">Git</a> <a href="/tags/NPM/" style="font-size: 14px; color: #999">NPM</a> <a href="/tags/Yarn/" style="font-size: 14px; color: #999">Yarn</a> <a href="/tags/javascript/" style="font-size: 19px; color: #777">javascript</a> <a href="/tags/linux/" style="font-size: 14px; color: #999">linux</a> <a href="/tags/node/" style="font-size: 14px; color: #999">node</a> <a href="/tags/note/" style="font-size: 19px; color: #777">note</a> <a href="/tags/react-native/" style="font-size: 14px; color: #999">react-native</a> <a href="/tags/拍照摄影/" style="font-size: 14px; color: #999">拍照摄影</a> <a href="/tags/杂记/" style="font-size: 19px; color: #777">杂记</a> <a href="/tags/版本控制/" style="font-size: 14px; color: #999">版本控制</a>
+      <a href="/tags/CSS3/" style="font-size: 14px; color: #999">CSS3</a> <a href="/tags/ES6/" style="font-size: 17.33px; color: #828282">ES6</a> <a href="/tags/Git/" style="font-size: 24px; color: #555">Git</a> <a href="/tags/NPM/" style="font-size: 14px; color: #999">NPM</a> <a href="/tags/Yarn/" style="font-size: 14px; color: #999">Yarn</a> <a href="/tags/javascript/" style="font-size: 17.33px; color: #828282">javascript</a> <a href="/tags/linux/" style="font-size: 14px; color: #999">linux</a> <a href="/tags/node/" style="font-size: 14px; color: #999">node</a> <a href="/tags/note/" style="font-size: 17.33px; color: #828282">note</a> <a href="/tags/react-native/" style="font-size: 14px; color: #999">react-native</a> <a href="/tags/拍照摄影/" style="font-size: 14px; color: #999">拍照摄影</a> <a href="/tags/杂记/" style="font-size: 20.67px; color: #6c6c6c">杂记</a> <a href="/tags/版本控制/" style="font-size: 14px; color: #999">版本控制</a>
     </div>
   </section>
 
