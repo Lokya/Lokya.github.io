@@ -317,7 +317,7 @@
 <p>一开始以为是 <code>node</code> 版本问题，但是执行 <code>node -v</code> 后发现 <code>node</code> 版本是 <code>v8.12.0</code>, 版本完全大于 <code>6.0.0</code></p>
 <p>查询后需要忽略 <code>yarn</code> 的引擎检查</p>
 <p>执行</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span> yarn config set ignore-engines true</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span>或者</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;</span> yarn --ignore-engines</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> yarn config <span class="built_in">set</span> ignore-engines <span class="literal">true</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">或者</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> yarn --ignore-engines</span></span><br></pre></td></tr></table></figure>
 <p>即可执行成功。</p>
 <h2 id="备注"><a href="#备注" class="headerlink" title="备注"></a>备注</h2><p>在这里再添加点 <code>yarn</code> 官网的一些操作</p>
 <p><code>yarn install</code>用于安装一个项目的所有依赖。 这个命令最常见的使用场景是在你刚<code>Check out</code>一份项目代码之后，或者在你需要使用其他开发者新增加的项目依赖的时候。</p>
